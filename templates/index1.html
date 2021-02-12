@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+
+<body>
+  {% if user.is_authenticated %}
+  <table style="width:100%">
+    <tr>
+      <th>Welcome</th>
+    </tr>
+
+    <tr>
+      <td>Hi @{{user}}</td>
+    </tr>
+    <tr>
+      <td><a href="{% url 'accounts:logout' %}">Logout</a></td>
+    </tr>
+  </table>
+  {% else %}
+  <table style="width:100%">
+    <tr>
+      <th>Oops</th>
+    </tr>
+
+    <tr>
+      <td>Kindly</td>
+    </tr>
+    <tr>
+      <td><a href="{% url 'accounts:login' %}">Login</a></td>
+    </tr>
+  </table>
+  {% endif %}
+  <h1>This is a Tracking Portal</h1>
+  <hr>
+  <hr>
+  <hr>
+  <hr>
+  {% if user.is_authenticated %}
+  {% if user.is_owner %}
+  <div class="">
+    <a target="_blank" href="{% url 'agencylist' %}">Agencies</a>
+    <hr>
+    <a target="_blank" href="{% url 'advertiserlist' %}">Advertisers</a>
+    <hr>
+    <a target="_blank" href="{% url 'publisherlist' %}">Running Campaigns by Publishers</a>
+    <hr>
+    <a target="_blank" href="{% url 'campaignlist' %}">Campaigns</a>
+    <!-- <hr>
+    <a target="_blank" href="{% url 'cpl' %}">Assigned Campaigns to Publishers</a> -->
+    <hr>
+    <a target="_blank" href="{% url 'leadslist' %}">Clicks/Visits Data</a>
+  </div>
+  {% endif %}
+  {% if user.is_manager %}
+  <div class="">
+    <a target="_blank" href="{% url 'agencylist' %}">Agencies</a>
+    <hr>
+    <a target="_blank" href="{% url 'advertiserlist' %}">Advertisers</a>
+    <hr>
+    <a target="_blank" href="{% url 'publisherlist' %}">Running Campaigns by Publishers</a>
+    <hr>
+    <a target="_blank" href="{% url 'campaignlist' %}">Campaigns</a>
+    <!-- <hr>
+    <a target="_blank" href="{% url 'cpl' %}">Assigned Campaigns to Publishers</a> -->
+    <hr>
+    <a target="_blank" href="{% url 'leadslist' %}">Clicks/Visits Data</a>
+  </div>
+  {% endif %}
+  {% if user.is_publisher %}
+  <div class="">
+    <a target="_blank" href="{% url 'campaignlist' %}">Campaigns</a>
+    <hr>
+    <a target="_blank" href="{% url 'publisherindividuallist' %}">Campaign Reports</a>
+    <hr>
+    <a href="{% url 'addpublisher' %}">Apply for Campaigns</a>
+  </div>
+  {% endif %}
+  {% else %}
+  <h1>Welcome Please Login to continue</h1>
+  {% endif %}
+
+  <!-- <h4>Working Pixel Below</h4>
+  <ul>
+    <li>
+      <h5>Image Pixel</h5>
+      <div style="border: 2px solid black" class="">
+        <a target="_blank" href="https://www.creditinbox.com">Click Here <img src="http://127.0.0.1:8000/campaign/visit-slug/1" height="1" width="1" /> </a>
+      </div>
+    </li>
+    <li>
+      <h5>IFrame Pixel</h5>
+      <div style="border: 2px solid black" class="">
+        <iframe src="http://127.0.0.1:8000/campaign/visit-slug/1" height="0" width="0"></iframe>
+    </li>
+  </ul> -->
+
+</body>
+
+</html>

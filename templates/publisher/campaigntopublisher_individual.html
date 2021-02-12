@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+
+<body>
+  <ol>
+    <!-- Iterate over object_list -->
+    {% for link in campaigntopublisher_list %}
+    <!-- Display Objects -->
+    <li>
+      <div class="">
+        <h3>Campaign- {{ link.campaign.campaign_name }}</h3>
+        <h3>Publisher- {{ link.user.company_name }}</h3>
+        <h3>Status- {{ link.status }}</h3>
+        {% if link.status == "active" %}
+        <h4>Link: 127.0.0.1:8000/publisher/visit-slug/{{link.pk}}</h4>
+        <h4><a href="{% url 'publisherdetail' pk=link.pk %}">Click to try</a></h4>
+        {% endif %}
+        {% if user.is_authenticated %}
+        {% if user.is_owner or user.is_manager %}
+        <h4><a href="{% url 'publisherupdate' pk=link.pk %}">Change Status Here</a></h4>
+        {% endif %}
+        {% endif %}
+
+      </div>
+    </li>
+    <!-- <li>{{ object.description }}</li> -->
+
+    <hr />
+    <!-- If objet_list is empty  -->
+    {% empty %}
+    <li>No Advertisers yet.</li>
+    {% endfor %}
+  </ol>
+</body>
+
+</html>

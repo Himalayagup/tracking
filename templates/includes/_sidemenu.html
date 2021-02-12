@@ -1,0 +1,1208 @@
+{% load static %}
+{% load widget_tweaks %}
+
+<!-- BEGIN: Sidebar Group -->
+<div class="sidebar-group">
+
+  <!-- BEGIN: User Menu -->
+  <div class="sidebar" id="user-menu">
+    <div class="py-4 text-center" data-backround-image="{% static 'media/image/image1.jpg' %}">
+      <figure class="avatar avatar-lg mb-3 border-0">
+        {% if user.gender == 'male' %}
+        <img src="{% static 'media/image/user/avatar_male.png' %}" class="rounded-circle" alt="image">
+        {% elif user.gender == 'female' %}
+        <img src="{% static 'media/image/user/avatar_female.png' %}" class="rounded-circle" alt="image">
+        {% endif %}
+      </figure>
+      <h5 class="d-flex align-items-center justify-content-center">Hi</h5>
+      <div>
+        @<strong>{{user}}</strong>
+      </div>
+    </div>
+    <div class="card mb-0 card-body shadow-none">
+      <div class="mb-4">
+        <div class="list-group list-group-flush">
+          <a href="{% url 'logout' %}" class="list-group-item p-l-r-0 text-danger">Log Out!</a>
+        </div>
+      </div>
+      {% if user.is_manager %}
+      <div class="mb-4">
+        <h6>Mobile No:</h6>
+        <p class="text-muted mb-0">{{user.Manager_User.mobile}}</p>
+      </div>
+      <div class="mb-4">
+        <h6>Email ID</h6>
+        <p class="text-muted mb-0">{{user.Manager_User.email}}</p>
+      </div>
+      <hr>
+      <div class="mb-4">
+        <div class="list-group list-group-flush">
+          <h5 class="text-muted mb-0 p-l-r-0">You have a</h5>
+          <h6 class="text-muted mb-0 p-l-r-0">Manager Account</h6>
+        </div>
+      </div>
+      {% endif %}
+      {% if user.is_owner %}
+      <div class="mb-4">
+        <h6>Mobile No:</h6>
+        <p class="text-muted mb-0">{{user.Owner_User.mobile}}</p>
+      </div>
+      <div class="mb-4">
+        <h6>Email ID</h6>
+        <p class="text-muted mb-0">{{user.Owner_User.email}}</p>
+      </div>
+      <hr>
+      <div class="mb-4">
+        <div class="list-group list-group-flush">
+          <h5 class="text-muted mb-0 p-l-r-0">You have an</h5>
+          <h6 class="text-muted mb-0 p-l-r-0">Admin Account</h6>
+        </div>
+      </div>
+      {% endif %}
+      {% if user.is_publisher %}
+      <div class="mb-4">
+        <h6>Email ID:</h6>
+        <p class="text-muted mb-0">{{user.Publisher_User.email}}</p>
+      </div>
+      <div class="mb-4">
+        <h6>Company</h6>
+        <p class="text-muted mb-0">{{user.Publisher_User.company_name}}</p>
+      </div>
+      <hr>
+      <div class="mb-4">
+        <div class="list-group list-group-flush">
+          <h5 class="text-muted mb-0 p-l-r-0">You have a</h5>
+          <h6 class="text-muted mb-0 p-l-r-0">Publisher Account</h6>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+  <!-- END: User Menu -->
+
+  <!-- BEGIN: Settings -->
+  <div class="sidebar" id="settings">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">Settings</h6>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item pl-0 pr-0">
+            <div class="custom-control custom-switch">
+              <input type="checkbox" class="custom-control-input" id="customSwitch1" checked>
+              <label class="custom-control-label" for="customSwitch1">Allow notifications.</label>
+            </div>
+          </li>
+          <li class="list-group-item pl-0 pr-0">
+            <div class="custom-control custom-switch">
+              <input type="checkbox" class="custom-control-input" id="customSwitch2">
+              <label class="custom-control-label" for="customSwitch2">Hide user requests</label>
+            </div>
+          </li>
+          <li class="list-group-item pl-0 pr-0">
+            <div class="custom-control custom-switch">
+              <input type="checkbox" class="custom-control-input" id="customSwitch3" checked>
+              <label class="custom-control-label" for="customSwitch3">Speed up demands</label>
+            </div>
+          </li>
+          <li class="list-group-item pl-0 pr-0">
+            <div class="custom-control custom-switch">
+              <input type="checkbox" class="custom-control-input" id="customSwitch4" checked>
+              <label class="custom-control-label" for="customSwitch4">Hide menus</label>
+            </div>
+          </li>
+          <li class="list-group-item pl-0 pr-0">
+            <div class="custom-control custom-switch">
+              <input type="checkbox" class="custom-control-input" id="customSwitch5">
+              <label class="custom-control-label" for="customSwitch5">Remember next visits</label>
+            </div>
+          </li>
+          <li class="list-group-item pl-0 pr-0">
+            <div class="custom-control custom-switch">
+              <input type="checkbox" class="custom-control-input" id="customSwitch6">
+              <label class="custom-control-label" for="customSwitch6">Enable report
+                generation.</label>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- END: Settings -->
+
+</div>
+<!-- END: Sidebar Group -->
+
+<!-- begin::main -->
+<div class="layout-wrapper">
+
+  <!-- begin::header -->
+  <div class="header d-print-none">
+
+    <div class="header-left">
+      <div class="navigation-toggler">
+        <a href="#" data-action="navigation-toggler">
+          <i data-feather="menu"></i>
+        </a>
+      </div>
+      <div class="header-logo">
+        <a href=index.html>
+          <img class="logo" src="{% static 'media/image/logo.png' %}" alt="logo">
+          <img class="logo-light" src="{% static 'media/image/logo-light.png' %}" alt="light logo">
+        </a>
+      </div>
+    </div>
+
+    <div class="header-body">
+      <div class="header-body-left">
+        <div class="page-title">
+          <h4>Dashboard</h4>
+        </div>
+      </div>
+      <div class="header-body-right">
+        <ul class="navbar-nav">
+
+          <!-- begin::header fullscreen -->
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link" title="Fullscreen" data-toggle="fullscreen">
+              <i class="maximize" data-feather="maximize"></i>
+              <i class="minimize" data-feather="minimize"></i>
+            </a>
+          </li>
+          <!-- end::header fullscreen -->
+
+          <!-- begin::header search -->
+          <li class="nav-item">
+            <a href="#" class="nav-link" title="Search" data-toggle="dropdown">
+              <i data-feather="search"></i>
+            </a>
+            <div class="dropdown-menu p-2 dropdown-menu-right">
+              <form>
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Search">
+                  <div class="input-group-prepend">
+                    <button class="btn" type="button">
+                      <i data-feather="search"></i>
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </li>
+          <!-- end::header search -->
+
+          <!-- begin::apps -->
+          <!-- <li class="nav-item dropdown">
+            <a href="#" class="nav-link" title="Apps" data-toggle="dropdown">
+              <i data-feather="box"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right dropdown-menu-big">
+              <div class="bg-dark p-4 text-center d-flex justify-content-between">
+                <h5 class="mb-0">Apps</h5>
+
+              </div>
+              <div class="p-3">
+                <div class="row row-xs">
+                  <div class="col-6">
+                    <a href="chat.html">
+                      <div class="border-radius-1 text-center mb-3">
+                        <figure class="avatar avatar-lg border-0">
+                          <span class="avatar-title bg-primary text-white rounded-circle">
+                            <i class="width-30 height-30" data-feather="message-circle"></i>
+                          </span>
+                        </figure>
+                        <div class="mt-2">Chat</div>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="col-6">
+                    <a href="mail.html">
+                      <div class="border-radius-1 text-center mb-3">
+                        <figure class="avatar avatar-lg border-0">
+                          <span class="avatar-title bg-secondary text-white rounded-circle">
+                            <i class="width-30 height-30" data-feather="mail"></i>
+                          </span>
+                        </figure>
+                        <div class="mt-2">Mail</div>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="col-6">
+                    <a href="todo-list.html">
+                      <div class="border-radius-1 text-center">
+                        <figure class="avatar avatar-lg border-0">
+                          <span class="avatar-title bg-info text-white rounded-circle">
+                            <i class="width-30 height-30" data-feather="check-circle"></i>
+                          </span>
+                        </figure>
+                        <div class="mt-2">Todo List</div>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="col-6">
+                    <a href="file-manager.html">
+                      <div class="border-radius-1 text-center">
+                        <figure class="avatar avatar-lg border-0">
+                          <span class="avatar-title bg-warning text-white rounded-circle">
+                            <i class="width-30 height-30" data-feather="file"></i>
+                          </span>
+                        </figure>
+                        <div class="mt-2">File Manager</div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li> -->
+          <!-- end::apps -->
+
+          <!-- begin::settings -->
+          <!-- <li class="nav-item dropdown">
+            <a href="#" class="nav-link" title="Settings" data-sidebar-target="#settings">
+              <i data-feather="settings"></i>
+            </a>
+          </li> -->
+          <!-- end::settings -->
+
+          <!-- begin::user menu -->
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link" title="User menu" data-sidebar-target="#user-menu">
+              <span class="mr-2 d-sm-inline d-none">Hi, {{user.first_name}}!</span>
+              <figure class="avatar avatar-sm">
+                {% if user.gender == 'male' %}
+                <img src="{% static 'media/image/user/avatar_male.png' %}" class="rounded-circle" alt="avatar">
+                {% elif user.gender == 'female' %}
+                <img src="{% static 'media/image/user/avatar_female.png' %}" class="rounded-circle" alt="avatar">
+                {% endif %}
+              </figure>
+
+            </a>
+          </li>
+          <!-- end::user menu -->
+
+        </ul>
+
+        <!-- begin::mobile header toggler -->
+        <ul class="navbar-nav d-flex align-items-center">
+          <li class="nav-item header-toggler">
+            <a href="#" class="nav-link">
+              <i data-feather="arrow-down"></i>
+            </a>
+          </li>
+        </ul>
+        <!-- end::mobile header toggler -->
+      </div>
+    </div>
+
+  </div>
+  <!-- end::header -->
+
+  <div class="content-wrapper">
+
+    <!-- begin::navigation -->
+    <div class="navigation">
+      <div class="navigation-menu-tab">
+        <ul>
+          <li>
+            <a href="#" data-toggle="tooltip" data-placement="right" title="Master" data-nav-target="#main">
+              <i data-feather="cpu"></i>
+            </a>
+          </li>
+          <li>
+            <a href="#" data-toggle="tooltip" data-placement="right" title="Analytics" data-nav-target="#analytics">
+              <i data-feather="activity"></i>
+            </a>
+          </li>
+          <li>
+            <a href="#" data-toggle="tooltip" data-placement="right" title="Campaigns" data-nav-target="#campaign">
+              <i data-feather="briefcase"></i>
+            </a>
+          </li>
+          <li>
+            {% if user.is_publisher %}
+            {% if request.resolver_match.url_name == "camppubaddpixel" %}
+            <a href="#" data-toggle="tooltip" data-placement="right" title="Running Campaigns by Publishers " data-nav-target="#runningcamp">
+              <i data-feather="command"></i>
+            </a>
+            {% endif %}
+            {% else %}
+            <a href="#" data-toggle="tooltip" data-placement="right" title="Running Campaigns by Publishers " data-nav-target="#runningcamp">
+              <i data-feather="command"></i>
+            </a>
+            {% endif %}
+          </li>
+          {% if request.resolver_match.url_name == "advertiserdelete" %}
+          <li>
+            <a href="#" data-toggle="tooltip" data-placement="right" title="Delete" data-nav-target="#delete">
+              <i data-feather="alert-triangle"></i>
+            </a>
+          </li>
+          {% elif request.resolver_match.url_name == "agencydelete" %}
+          <li>
+            <a href="#" data-toggle="tooltip" data-placement="right" title="Delete" data-nav-target="#delete">
+              <i data-feather="alert-triangle"></i>
+            </a>
+          </li>
+          {% elif request.resolver_match.url_name == "campaigndelete" %}
+          <li>
+            <a href="#" data-toggle="tooltip" data-placement="right" title="Delete" data-nav-target="#delete">
+              <i data-feather="alert-triangle"></i>
+            </a>
+          </li>
+          {% endif %}
+          <!--<li>
+            <a href="#" data-toggle="tooltip" data-placement="right" title="Apps" data-nav-target="#apps">
+              <i data-feather="globe"></i>
+            </a>
+          </li>
+          <li>
+            <a href="#" data-toggle="tooltip" data-placement="right" title="User" data-nav-target="#user">
+              <i data-feather="users"></i>
+            </a>
+          </li>
+          <li>
+            <a href="#" data-toggle="tooltip" data-placement="right" title="Components" data-nav-target="#components">
+              <i data-feather="layers"></i>
+            </a>
+          </li>
+          <li>
+            <a href="#" data-toggle="tooltip" data-placement="right" title="Forms" data-nav-target="#forms">
+              <i data-feather="edit-3"></i>
+            </a>
+          </li>
+          <li>
+            <a href="#" data-toggle="tooltip" data-placement="right" title="Plugins" data-nav-target="#plugins">
+              <i data-feather="gift"></i>
+            </a>
+          </li>
+          <li>
+            <a href="#" data-toggle="tooltip" data-placement="right" title="Pages" data-nav-target="#pages">
+              <i data-feather="copy"></i>
+            </a>
+          </li> -->
+        </ul>
+      </div>
+      <div class="navigation-menu-body">
+        <div class="navigation-menu-group">
+          <div id="main">
+            <ul>
+              <li class="navigation-divider d-flex align-items-center">
+                <i class="mr-2" data-feather="cpu"></i>Welcome
+                <!-- <i class="mr-2" data-feather="shopping-cart"></i> -->
+              </li>
+              {% if request.resolver_match.url_name == "home" %}
+              <li>
+                <a class="active" href="{% url 'home' %}">Dashboard</a>
+              </li>
+              {% else %}
+              <li>
+                <a href="{% url 'home' %}">Dashboard</a>
+              </li>
+              {% endif %}
+              <li>
+                <a href="{% url 'campaignlist' %}">Campaign List</a>
+              </li>
+              {% if user.is_manager or user.is_owner %}
+              {% if request.resolver_match.url_name == "publisherlist" %}
+              <li>
+                <a class="active" href="{% url 'publisherlist' %}">Publisher List</a>
+              </li>
+              {% else %}
+              <li>
+                <a href="{% url 'publisherlist' %}">Publisher List</a>
+              </li>
+              {% endif %}
+              {% endif %}
+              {% if request.resolver_match.url_name == "campaignlistpublisherwise" %}
+              <li>
+                <a class="active" style="cursor:pointer;">Running Campaigns</a>
+              </li>
+              {% endif %}
+              <li class="navigation-divider">Summary</li>
+              <li>
+                <a href="#" class="d-flex align-items-start">
+                  <div>
+                    <figure class="avatar mr-3">
+                      <span class="avatar-title bg-warning rounded">
+                        <i class="fa fa-bar-chart"></i>
+                      </span>
+                    </figure>
+                  </div>
+                  <div>
+                    <h6>Total Orders</h6>
+                    <h4 class="mb-0 font-weight-bold">$50.958</h4>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="d-flex align-items-start">
+                  <div>
+                    <figure class="avatar mr-3">
+                      <span class="avatar-title bg-success rounded">
+                        <i class="fa fa-trash"></i>
+                      </span>
+                    </figure>
+                  </div>
+                  <div>
+                    <h6>New Products</h6>
+                    <h4 class="mb-0">100</h4>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="d-flex align-items-start">
+                  <div>
+                    <figure class="avatar mr-3">
+                      <span class="avatar-title bg-danger rounded">
+                        <i class="fa fa-refresh"></i>
+                      </span>
+                    </figure>
+                  </div>
+                  <div>
+                    <h6>Refund</h6>
+                    <h4 class="mb-0">5.301</h4>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div id="analytics">
+            <ul>
+              <li class="navigation-divider d-flex align-items-center">
+                <i class="mr-2" data-feather="activity"></i> Analytics
+              </li>
+              <li>
+                <a href="#">Visual Data</a>
+              </li>
+              {% if user.is_publisher %}
+              {% if request.resolver_match.url_name == "campaign_reports" %}
+              <li>
+                <a class="active" href="{% url 'campaign_reports' %}">Campaign Reports</a>
+              </li>
+              {% else %}
+              <li>
+                <a href="{% url 'campaign_reports' %}">Campaign Reports</a>
+              </li>
+              {% endif %}
+              {% else %}
+              {% if request.resolver_match.url_name == "campaignwisereport" %}
+              <li>
+                <a class="active" href="{% url 'campaignwisereport' %}">Campaign Reports</a>
+              </li>
+              {% else %}
+              <li>
+                <a href="{% url 'campaignwisereport' %}">Campaign Reports</a>
+              </li>
+              {% endif %}
+              {% endif %}
+              {% if request.resolver_match.url_name == "campaign_reports_indi" %}
+              <li>
+                <a class="active" style="cursor:pointer;">{{campaign.campaign_name}}: Report</a>
+              </li>
+              {% endif %}
+              {% if request.resolver_match.url_name == "camapignwisedetailedreport" %}
+              <li>
+                <a class="active">Report</a>
+              </li>
+              {% endif %}
+              {% if user.is_manager or user.is_owner %}
+              {% if request.resolver_match.url_name == "visitlist" %}
+              <li>
+                <a class="active" href="{% url 'visitlist' %}">Clicks/Visits</a>
+              </li>
+              {% else %}
+              <li>
+                <a href="{% url 'visitlist' %}">Clicks/Visits</a>
+              </li>
+              {% endif %}
+              {% if request.resolver_match.url_name == "leadlist" %}
+              <li>
+                <a class="active" href="{% url 'leadlist' %}">Leads</a>
+              </li>
+              {% else %}
+              <li>
+                <a href="{% url 'leadlist' %}">Leads</a>
+              </li>
+              {% endif %}
+              {% endif %}
+
+
+              <li class="navigation-divider">Summary</li>
+              <li>
+                <a href="#" class="d-flex align-items-start">
+                  <div>
+                    <figure class="avatar mr-2">
+                      <span class="avatar-title bg-warning rounded-circle">
+                        <i class="fa fa-bar-chart"></i>
+                      </span>
+                    </figure>
+                  </div>
+                  <div>
+                    <h6 class="mb-0">Total Sales</h6>
+                    <p class="text-muted mb-0 small">This Mounth</p>
+                    <h4 class="mb-0">$50.958</h4>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="d-flex align-items-start">
+                  <div>
+                    <figure class="avatar mr-2">
+                      <span class="avatar-title bg-success rounded-circle">
+                        <i class="fa fa-globe"></i>
+                      </span>
+                    </figure>
+                  </div>
+                  <div>
+                    <h6 class="mb-0">Projects</h6>
+                    <p class="text-muted mb-0 small">Today</p>
+                    <h4 class="mb-0">35</h4>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="d-flex align-items-start">
+                  <div>
+                    <figure class="avatar mr-2">
+                      <span class="avatar-title bg-info rounded-circle">
+                        <i class="fa fa-user-o"></i>
+                      </span>
+                    </figure>
+                  </div>
+                  <div>
+                    <h6 class="mb-0">Total Visitor</h6>
+                    <p class="text-muted mb-0 small">Today</p>
+                    <h4 class="mb-0">5.301</h4>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div id="campaign">
+            <ul>
+              <li class="navigation-divider d-flex align-items-center">
+                <i class="mr-2" data-feather="briefcase"></i> Campaigns
+              </li>
+              {% if user.is_manager or user.is_owner %}
+              {% if request.resolver_match.url_name == "agencylist" %}
+              <li>
+                <a class="active" href="{% url 'agencylist' %}">Agency</a>
+              </li>
+              {% else %}
+              <li>
+                <a href="{% url 'agencylist' %}">Agency</a>
+              </li>
+              {% endif %}
+              {% if request.resolver_match.url_name == "addagency" %}
+              <li>
+                <a class="active" href="{% url 'addagency' %}">Add Agency</a>
+              </li>
+              {% endif %}
+              {% if request.resolver_match.url_name == "agencyupdate" %}
+              <li>
+                <a style="cursor:pointer" class="active">Update Agency</a>
+              </li>
+              {% endif %}
+              {% if request.resolver_match.url_name == "advertiserlist" %}
+              <li>
+                <a class="active" href="{% url 'advertiserlist' %}">Advertiser</a>
+              </li>
+              {% else %}
+              <li>
+                <a href="{% url 'advertiserlist' %}">Advertiser</a>
+              </li>
+              {% endif %}
+              {% if request.resolver_match.url_name == "addadvertiser" %}
+              <li>
+                <a class="active" href="{% url 'addadvertiser' %}">Add Advertiser</a>
+              </li>
+              {% endif %}
+              {% if request.resolver_match.url_name == "advertiserupdate" %}
+              <li>
+                <a style="cursor:pointer" class="active">Update Advertiser</a>
+              </li>
+              {% endif %}
+              {% endif %}
+              {% if request.resolver_match.url_name == "campaignlist" %}
+              <li>
+                <a class="active" href="{% url 'campaignlist' %}">Campaign List</a>
+              </li>
+              {% else %}
+              <li>
+                <a href="{% url 'campaignlist' %}">Campaign List</a>
+              </li>
+              {% endif %}
+              {% if user.is_publisher %}
+              {% if request.resolver_match.url_name == "publisherindividuallist" %}
+              <li>
+                <a class="active" href="{% url 'publisherindividuallist' %}">Running Campaign</a>
+              </li>
+              {% else %}
+              <li>
+                <a href="{% url 'publisherindividuallist' %}">Running Campaign</a>
+              </li>
+              {% endif %}
+              {% endif %}
+              {% if user.is_publisher %}
+
+              {% endif %}
+              {% if user.is_manager or user.is_owner %}
+              {% if request.resolver_match.url_name == "addcampaign" %}
+              <li>
+                <a class="active" href="{% url 'addcampaign' %}">Add New Campaign</a>
+              </li>
+              {% else %}
+              <li>
+                <a href="{% url 'addcampaign' %}">Add New Campaign</a>
+              </li>
+              {% endif %}
+              {% if request.resolver_match.url_name == "campaignupdate" %}
+              <li>
+                <a class="active">Update Campaign</a>
+              </li>
+              {% endif %}
+              {% if request.resolver_match.url_name == "campaigndetail" %}
+              <li>
+                <a class="active">Detailed Campaign</a>
+              </li>
+              {% endif %}
+              {% endif %}
+              <li class="navigation-divider">Summary</li>
+              <li>
+                <a href="#" class="d-flex align-items-start">
+                  <div>
+                    <figure class="avatar mr-2">
+                      <span class="avatar-title bg-warning rounded-circle">
+                        <i class="fa fa-bar-chart"></i>
+                      </span>
+                    </figure>
+                  </div>
+                  <div>
+                    <h6 class="mb-0">Total Sales</h6>
+                    <p class="text-muted mb-0 small">This Mounth</p>
+                    <h4 class="mb-0">$50.958</h4>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="d-flex align-items-start">
+                  <div>
+                    <figure class="avatar mr-2">
+                      <span class="avatar-title bg-success rounded-circle">
+                        <i class="fa fa-globe"></i>
+                      </span>
+                    </figure>
+                  </div>
+                  <div>
+                    <h6 class="mb-0">Projects</h6>
+                    <p class="text-muted mb-0 small">Today</p>
+                    <h4 class="mb-0">35</h4>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="d-flex align-items-start">
+                  <div>
+                    <figure class="avatar mr-2">
+                      <span class="avatar-title bg-info rounded-circle">
+                        <i class="ti-user"></i>
+                      </span>
+                    </figure>
+                  </div>
+                  <div>
+                    <h6 class="mb-0">Total Visitor</h6>
+                    <p class="text-muted mb-0 small">Today</p>
+                    <h4 class="mb-0">5.301</h4>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div id="runningcamp">
+            <ul>
+              <li class="navigation-divider d-flex align-items-center">
+                <i class="mr-2" data-feather="command"></i> Running Campaigns
+              </li>
+              {% if user.is_manager or user.is_owner %}
+              {% if request.resolver_match.url_name == "runningcamplist" %}
+              <li>
+                <a class="active" href="{% url 'runningcamplist' %}">Campaign Requests</a>
+              </li>
+              {% else %}
+              <li>
+                <a href="{% url 'runningcamplist' %}">Campaign Requests</a>
+              </li>
+              {% endif %}
+              {% endif %}
+              {% if request.resolver_match.url_name == "camppubupdate" %}
+              <li>
+                <a style="cursor:pointer" class="active">Update Status</a>
+              </li>
+              {% endif %}
+              {% if request.resolver_match.url_name == "camppubaddpixel" %}
+              <li>
+                <a style="cursor:pointer" class="active">Add/Update Pixel</a>
+              </li>
+              {% endif %}
+              {% if user.is_manager or user.is_owner %}
+              {% if request.resolver_match.url_name == "mannualassign" %}
+              <li>
+                <a class="active" href="{% url 'mannualassign' %}">Mannualy Assign Campaign to Publisher</a>
+              </li>
+              {% else %}
+              <li>
+                <a href="{% url 'mannualassign' %}">Mannualy Assign Campaign to Publisher</a>
+              </li>
+              {% endif %}
+              {% endif %}
+            </ul>
+          </div>
+
+
+          <div id="delete">
+            <ul>
+              <li class="navigation-divider d-flex align-items-center">
+                <i class="mr-2" data-feather="alert-triangle"></i> Delete
+              </li>
+              {% if request.resolver_match.url_name == "advertiserdelete" %}
+              <li>
+                <a class="active">Delete Advertiser</a>
+              </li>
+              {% endif %}
+              {% if request.resolver_match.url_name == "campaigndelete" %}
+              <li>
+                <a class="active">Delete Campaign</a>
+              </li>
+              {% endif %}
+              {% if request.resolver_match.url_name == "agencydelete" %}
+              <li>
+                <a class="active">Delete Agency</a>
+              </li>
+
+              {% endif %}
+            </ul>
+          </div>
+
+          <div id="apps">
+            <ul>
+              <li class="navigation-divider d-flex align-items-center">
+                <i class="mr-2" data-feather="globe"></i> Apps
+              </li>
+              <li>
+                <a href="chat.html">
+                  <span>Chat</span>
+                  <span class="badge badge-danger">5</span>
+                </a>
+              </li>
+              <li>
+                <a href="mail.html">
+                  <span>Mail</span>
+                </a>
+              </li>
+              <li>
+                <a href="todo-list.html">
+                  <span>Todo List</span>
+                  <span class="badge badge-warning">2</span>
+                </a>
+              </li>
+              <li>
+                <a href="file-manager.html">
+                  <span>File Manager</span>
+                </a>
+              </li>
+              <li>
+                <a href="calendar.html">
+                  <span>Calendar</span>
+                </a>
+              </li>
+              <li>
+                <a href="gallery.html">
+                  <span>Gallery</span>
+                </a>
+              </li>
+              <li>
+                <a href="invoice.html">Invoice</a>
+              </li>
+              <li class="navigation-divider">Recent Contacts</li>
+              <li>
+                <div class="list-group list-group-flush">
+                  <a href="#" class="list-group-item d-flex align-items-center">
+                    <div>
+                      <div class="avatar avatar-sm m-r-10">
+                        <img src="{% static 'media/image/user/man_avatar1.jpg' %}" class="rounded-circle" alt="image">
+                      </div>
+                    </div>
+                    <span>Valentine Maton</span>
+                  </a>
+                  <a href="#" class="list-group-item d-flex align-items-center">
+                    <div>
+                      <div class="avatar avatar-sm m-r-10">
+                        <img src="{% static 'media/image/user/women_avatar2.jpg' %}" class="rounded-circle" alt="image">
+                      </div>
+                    </div>
+                    <span>Holmes Cherryman</span>
+                  </a>
+                  <a href="#" class="list-group-item d-flex align-items-center">
+                    <div>
+                      <div class="avatar avatar-sm m-r-10">
+                        <img src="{% static 'media/image/user/women_avatar4.jpg' %}" class="rounded-circle" alt="image">
+                      </div>
+                    </div>
+                    <span>Kenneth Hune</span>
+                  </a>
+                  <a href="#" class="list-group-item d-flex align-items-center">
+                    <div>
+                      <div class="avatar avatar-sm m-r-10">
+                        <img src="{% static '/media/image/user/women_avatar3.jpg' %}" class="rounded-circle" alt="image">
+                      </div>
+                    </div>
+                    <span>Holmes Cherryman</span>
+                  </a>
+                  <a href="#" class="list-group-item d-flex align-items-center">
+                    <div>
+                      <div class="avatar avatar-sm m-r-10">
+                        <img src="{% static 'media/image/user/women_avatar5.jpg' %}" class="rounded-circle" alt="image">
+                      </div>
+                    </div>
+                    <span>Kenneth Hune</span>
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div id="user">
+            <ul>
+              <li class="navigation-divider d-flex align-items-center">
+                <i class="mr-2" data-feather="users"></i> User
+              </li>
+              <li>
+                <a href="profile.html">Profile</a>
+              </li>
+              <li>
+                <a href="user-list.html">User List</a>
+              </li>
+              <li>
+                <a href="user-edit.html">User Edit</a>
+              </li>
+              <li><a href="login.html" target="_blank">Login</a></li>
+              <li><a href="register.html" target="_blank">Register</a></li>
+              <li><a href="recovery-password.html" target="_blank">Recovery Password</a>
+              </li>
+              <li><a href="lock-screen.html" target="_blank">Lock Screen</a></li>
+              <li class="navigation-divider">Followers</li>
+              <li>
+                <div class="avatar-group ml-4">
+                  <figure class="avatar avatar-sm">
+                    <a href="#" title="Krisha McAlees" data-toggle="tooltip">
+                      <img src="{% static 'media/image/user/women_avatar4.jpg' %}" class="rounded-circle" alt="avatar">
+                    </a>
+                  </figure>
+                  <figure class="avatar avatar-sm">
+                    <a href="#" title="Rozella Baskerfield" data-toggle="tooltip">
+                      <span class="avatar-title bg-info rounded-circle">R</span>
+                    </a>
+                  </figure>
+                  <figure class="avatar avatar-sm">
+                    <a href="#" title="Hilton Dew" data-toggle="tooltip">
+                      <img src="{% static 'media/image/user/man_avatar3.jpg' %}" class="rounded-circle" alt="avatar">
+                    </a>
+                  </figure>
+                  <figure class="avatar avatar-sm">
+                    <a href="#" title="Mellie Smittoune" data-toggle="tooltip">
+                      <img src="{% static 'media/image/user/man_avatar1.jpg' %}" class="rounded-circle" alt="avatar">
+                    </a>
+                  </figure>
+                  <figure class="avatar avatar-sm">
+                    <a href="#" title="Avery Hampshire" data-toggle="tooltip">
+                      <span class="avatar-title bg-warning rounded-circle">A</span>
+                    </a>
+                  </figure>
+                  <figure class="avatar avatar-sm">
+                    <a href="#" title="Krisha McAlees" data-toggle="tooltip">
+                      <img src="{% static 'media/image/user/women_avatar2.jpg' %}" class="rounded-circle" alt="avatar">
+                    </a>
+                  </figure>
+                  <figure class="avatar avatar-sm">
+                    <a href="#" title="Rozella Baskerfield" data-toggle="tooltip">
+                      <span class="avatar-title bg-success rounded-circle">R</span>
+                    </a>
+                  </figure>
+                  <figure class="avatar avatar-sm">
+                    <a href="#" title="Other" data-toggle="tooltip">
+                      <span class="avatar-title bg-dark rounded-circle">+5</span>
+                    </a>
+                  </figure>
+                </div>
+              </li>
+              <li class="navigation-divider">Following</li>
+              <li>
+                <div class="avatar-group ml-4">
+                  <figure class="avatar avatar-sm">
+                    <a href="#" title="Krisha McAlees" data-toggle="tooltip">
+                      <img src="{% static 'media/image/user/women_avatar5.jpg' %}" class="rounded-circle" alt="avatar">
+                    </a>
+                  </figure>
+                  <figure class="avatar avatar-sm">
+                    <a href="#" title="Darby Croci" data-toggle="tooltip">
+                      <span class="avatar-title bg-danger rounded-circle">D</span>
+                    </a>
+                  </figure>
+                  <figure class="avatar avatar-sm">
+                    <a href="#" title="Hilton Dew" data-toggle="tooltip">
+                      <img src="{% static 'media/image/user/man_avatar5.jpg' %}" class="rounded-circle" alt="avatar">
+                    </a>
+                  </figure>
+                  <figure class="avatar avatar-sm">
+                    <a href="#" title="Mellie Smittoune" data-toggle="tooltip">
+                      <img src="{% static 'media/image/user/man_avatar2.jpg' %}" class="rounded-circle" alt="avatar">
+                    </a>
+                  </figure>
+                  <figure class="avatar avatar-sm">
+                    <a href="#" title="Mahalia Lemme" data-toggle="tooltip">
+                      <span class="avatar-title bg-secondary rounded-circle">M</span>
+                    </a>
+                  </figure>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div id="components">
+            <ul>
+              <li class="navigation-divider d-flex align-items-center">
+                <i class="mr-2" data-feather="layers"></i> Components
+              </li>
+              <li>
+                <a href="#">Basic Components</a>
+                <ul>
+                  <li>
+                    <a href="alert.html">Alerts</a>
+                  </li>
+                  <li>
+                    <a href="accordion.html">Accordion</a>
+                  </li>
+                  <li>
+                    <a href="buttons.html">Buttons</a>
+                  </li>
+                  <li>
+                    <a href="dropdown.html">Dropdown</a>
+                  </li>
+                  <li>
+                    <a href="list-group.html">List Group</a>
+                  </li>
+                  <li>
+                    <a href="pagination.html">Pagination</a>
+                  </li>
+                  <li>
+                    <a href="typography.html">Typography</a>
+                  </li>
+                  <li>
+                    <a href="media-object.html">Media Object</a>
+                  </li>
+                  <li>
+                    <a href="progress.html">Progress</a>
+                  </li>
+                  <li>
+                    <a href="modal.html">Modal</a>
+                  </li>
+                  <li>
+                    <a href="spinners.html">Spinners</a>
+                  </li>
+                  <li>
+                    <a href="navs.html">Navs</a>
+                  </li>
+                  <li>
+                    <a href="tab.html">Tab</a>
+                  </li>
+                  <li>
+                    <a href="tooltip.html">Tooltip</a>
+                  </li>
+                  <li>
+                    <a href="popovers.html">Popovers</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="#">Cards</a>
+                <ul>
+                  <li>
+                    <a href="basic-cards.html">Basic Cards </a>
+                  </li>
+                  <li>
+                    <a href="image-cards.html">Image Cards </a>
+                  </li>
+                  <li>
+                    <a href="scroll-cards.html">Scroll Cards </a>
+                  </li>
+                  <li>
+                    <a href="other-cards.html">Others Cards</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="#">Tables</a>
+                <ul>
+                  <li>
+                    <a href="basic-tables.html">Basic Tables</a>
+                  </li>
+                  <li>
+                    <a href="dataTable.html">Datatable</a>
+                  </li>
+                  <li>
+                    <a href="responsive-tables.html">Responsive Tables</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="#">Charts</a>
+                <ul>
+                  <li>
+                    <a href="apexchart.html">Apex Chart</a>
+                  </li>
+                  <li>
+                    <a href="chartjs.html">Chartjs</a>
+                  </li>
+                  <li>
+                    <a href="justgage.html">Justgage</a>
+                  </li>
+                  <li>
+                    <a href="morsis.html">Morsis</a>
+                  </li>
+                  <li>
+                    <a href="peity.html">Peity</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="#">Maps</a>
+                <ul>
+                  <li>
+                    <a href="google-map.html">Google Map</a>
+                  </li>
+                  <li>
+                    <a href="vector-map.html">Vector Map</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="avatar.html">Avatar</a>
+              </li>
+              <li>
+                <a href="icons.html">Icons</a>
+              </li>
+              <li>
+                <a href="colors.html">Colors</a>
+              </li>
+            </ul>
+          </div>
+          <div id="forms">
+            <ul>
+              <li class="navigation-divider d-flex align-items-center">
+                <i class="mr-2" data-feather="edit-3"></i> Forms
+              </li>
+              <li>
+                <a href="basic-forms.html">Basic Forms</a>
+              </li>
+              <li>
+                <a href="custom-forms.html">Custom Forms</a>
+              </li>
+              <li>
+                <a href="advanced-forms.html">Advanced Forms</a>
+              </li>
+              <li>
+                <a href="form-validation.html">Form Validation</a>
+              </li>
+              <li>
+                <a href="form-wizard.html">Form Wizard</a>
+              </li>
+              <li>
+                <a href="file-upload.html">File Upload</a>
+              </li>
+              <li>
+                <a href="datepicker.html">Datepicker</a>
+              </li>
+              <li>
+                <a href="timepicker.html">Timepicker</a>
+              </li>
+              <li>
+                <a href="colorpicker.html">Colorpicker</a>
+              </li>
+            </ul>
+          </div>
+          <div id="plugins">
+            <ul>
+              <li class="navigation-divider d-flex align-items-center">
+                <i class="mr-2" data-feather="gift"></i> Plugins
+              </li>
+              <li>
+                <a href="sweet-alert.html">Sweet Alert</a>
+              </li>
+              <li>
+                <a href="lightbox.html">Lightbox</a>
+              </li>
+              <li>
+                <a href="toast.html">Toast</a>
+              </li>
+              <li>
+                <a href="tour.html">Tour</a>
+              </li>
+              <li>
+                <a href="slick-slide.html">Slick Slide</a>
+              </li>
+              <li>
+                <a href="nestable.html">Nestable</a>
+              </li>
+            </ul>
+          </div>
+          <div id="pages">
+            <ul>
+              <li class="navigation-divider d-flex align-items-center">
+                <i class="mr-2" data-feather="copy"></i> Pages
+              </li>
+              <li>
+                <a href="timeline.html">Timeline</a>
+              </li>
+              <li>
+                <a href="pricing-table.html">Pricing Table</a>
+              </li>
+
+              <li>
+                <a href="pricing-table-2.html">Pricing Table 2</a>
+              </li>
+              <li>
+                <a href="search-result.html">Search Result</a>
+              </li>
+              <li>
+                <a href="mailing.html">Mailing</a>
+              </li>
+              <li>
+                <a href="#">Error Pages</a>
+                <ul>
+                  <li><a href="404.html" target="_blank">404</a></li>
+                  <li><a href="503.html" target="_blank">503</a></li>
+                  <li><a href="mean-at-work.html" target="_blank">Mean at
+                      Work</a></li>
+                </ul>
+              </li>
+              <li>
+                <a href="blank-page.html">Blank Page</a>
+              </li>
+              <li>
+                <a href="#">Menu Level</a>
+                <ul>
+                  <li>
+                    <a href="#">Menu Level</a>
+                    <ul>
+                      <li>
+                        <a href="#">Menu Level </a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end::navigation -->

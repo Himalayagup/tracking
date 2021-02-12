@@ -1,0 +1,146 @@
+{% load static %}
+{% load widget_tweaks %}
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Advertiser - List</title>
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="{% static 'media/image/favicon.png' %}" />
+
+  <!-- Plugin styles -->
+  <link rel="stylesheet" href="{% static 'vendors/bundle.css' %}" type="text/css">
+
+  <!-- Datatable -->
+  <link rel="stylesheet" href="{% static 'vendors/dataTable/datatables.min.css' %}" type="text/css">
+
+  <!-- App styles -->
+  <link rel="stylesheet" href="{% static 'css/app.min.css' %}" type="text/css">
+  <!-- Font awesome -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<body class="">
+
+  <!-- begin::preloader-->
+  <div class="preloader">
+    <div class="preloader-icon"></div>
+  </div>
+  <!-- end::preloader -->
+  {% include 'includes/_sidemenu.html' %}
+
+  <div class="content-body">
+
+    <div class="content">
+
+
+      <div class="page-header justify-content-between">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="#">Campaigns</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Advertiser List</li>
+          </ol>
+        </nav>
+        <div>
+          <a href="{% url 'addadvertiser' %}" class="btn btn-outline-primary active" title="Adnew" data-toggle="tooltip">
+            Add New Advertiser<i class="fa fa-plus"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+
+          <div class="card">
+            <div class="card-body">
+              <div class="table-responsive">
+                {% if advertiser_list %}
+                <table id="project-list" class="table table-lg">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th class="text-center">Advertiser</th>
+                      <th class="text-center">Status</th>
+                      <th class="text-center">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr></tr>
+                    {% for advertiser in advertiser_list %}
+                    <tr>
+                      <td>
+                        <span>{{ advertiser.pk }}</span>
+                      </td>
+                      <td class="text-center">
+                        <a href="#" class="text-info">{{ advertiser.company_name }}</a>
+                      </td>
+
+                      <td class="text-center">
+                        {% if advertiser.status == "active" %}
+                        <span class="badge bg-success-bright text-success">{{ advertiser.status }}</span>
+                        {% elif advertiser.status == "pending" %}
+                        <span class="badge bg-warning-bright text-warning">{{ advertiser.status }}</span>
+                        {% elif advertiser.status == "suspended" %}
+                        <span class="badge bg-danger-bright text-danger">{{ advertiser.status }}</span>
+                        {% elif advertiser.status == "declined" %}
+                        <span class="badge bg-secondary-bright text-secondary">{{ advertiser.status }}</span>
+                        {% endif %}
+
+                      </td>
+                      <td class="text-center">
+                        <a href="{% url 'advertiserupdate' pk=advertiser.pk %}" class="text-secondary" data-toggle="tooltip" title="Edit">
+                          <i class="fa fa-pencil"></i>
+                        </a>
+                        <a href="{% url 'advertiserdelete' pk=advertiser.pk %}" class="text-danger ml-2" data-toggle="tooltip" title="Delete">
+                          <i class="fa fa-trash-o"></i>
+                        </a>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+                {% else %}
+                <h3>No Advertiser Yet</h3>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+    </div>
+
+    <!-- begin::footer -->
+    {% include 'includes/_footer.html' %}
+    <!-- end::footer -->
+
+  </div>
+
+  </div>
+
+  </div>
+  <!-- end::main -->
+
+  <!-- Plugin scripts -->
+  <script src="{% static 'vendors/bundle.js' %}"></script>
+
+  <!-- Datatable -->
+  <script src="{% static 'vendors/dataTable/datatables.min.js' %}"></script>
+
+  <script src="{% static 'js/examples/pages/project-list.js' %}"></script>
+
+  <!-- App scripts -->
+  <script src="{% static 'js/app.min.js' %}"></script>
+
+</body>
+
+</html>
