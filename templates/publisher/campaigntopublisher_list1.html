@@ -1,0 +1,177 @@
+{% load static %}
+{% load widget_tweaks %}
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Publisher - Running Campaigns</title>
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="{% static 'media/image/favicon.png' %}" />
+
+  <!-- Plugin styles -->
+  <link rel="stylesheet" href="{% static 'vendors/bundle.css' %}" type="text/css">
+
+  <!-- Datatable -->
+  <link rel="stylesheet" href="{% static 'vendors/dataTable/datatables.min.css' %}" type="text/css">
+
+  <!-- App styles -->
+  <link rel="stylesheet" href="{% static 'css/app.min.css' %}" type="text/css">
+  <!-- Font awesome -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<body class="">
+
+  <!-- begin::preloader-->
+  <div class="preloader">
+    <div class="preloader-icon"></div>
+  </div>
+  <!-- end::preloader -->
+  {% include 'includes/_sidemenu.html' %}
+
+  <div class="content-body">
+
+    <div class="content">
+
+
+      <div class="page-header justify-content-between">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="#">Campaigns</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Campaign List</li>
+          </ol>
+        </nav>
+        {% if user.is_publisher %}
+        <div>
+          <a target="_blank" href="{% url 'addcamppub' %}">Apply for campaign</a>
+        </div>
+        {% endif %}
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+
+          <div class="card">
+            <div class="card-body">
+              <div class="table-responsive">
+                {% if campaigntopublisher_list %}
+                <table id="myTable" class="table table-striped table-bordered">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th class="text-center">Campaign</th>
+                      <th class="text-center">Publisher</th>
+                      <th class="text-center">Status</th>
+                      <th class="text-center">Link</th>
+                      <th class="text-center">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr></tr>
+                    {% for link in campaigntopublisher_list %}
+                    <tr>
+                      <td>
+                        <span>{{ link.pk }}</span>
+                      </td>
+                      {% if user.is_publisher %}
+                      <td class="text-center">
+                        <a href="{% url 'datatata' pk=link.campaign.campaign_key %}">
+                          <span class="text-center">{{ link.campaign.campaign_name }}</span>
+                        </a>
+                      </td>
+                      {% else %}
+                      <td class="text-center">
+                        <span class="text-center">{{ link.campaign.campaign_name }}</span>
+                      </td>
+                      {% endif %}
+                      <td class="text-center">{{ link.user.company_name }}</td>
+                      <td class="text-center">
+                        {% if link.status_cam == "active" %}
+                        <span class="badge bg-success-bright text-success" style="font-size:14px"><strong>{{ link.status_cam | capfirst }}</strong></span>
+                        {% elif link.status_cam == "pending" %}
+                        <span class="badge bg-warning-bright text-warning" style="font-size:14px"><strong>{{ link.status_cam | capfirst }}</strong></span>
+                        {% endif %}
+                      </td>
+
+                      <td class="text-center">
+                        {% if link.status_cam == "active" %}
+                        <p>127.0.0.1:8000/campaign/visit-slug/{{link.pk}}</p>
+                        <p><a target="_blank" href="{% url 'camppubdetail' pk=link.pk %}">Try link</a></p>
+                        {% else %}
+                        <p>must be active</p>
+                        {% endif %}
+                      </td>
+
+                      <td class="text-center">
+                        {% if user.is_authenticated %}
+                        {% if user.is_owner or user.is_manager %}
+
+                        <a href="{% url 'camppubupdate' pk=link.pk %}" class="text-secondary" data-toggle="tooltip" title="Change Status">
+                          <i class="fa fa-pencil"></i>
+                        </a>
+                        <a href="{% url 'camppubdelete' pk=link.pk %}" class="text-danger ml-2" data-toggle="tooltip" title="Delete">
+                          <i class="fa fa-trash"></i>
+                        </a>
+
+                        {% elif user.is_publisher %}
+                        {% if link.status_cam == "active"  %}
+                        <a href="{% url 'camppubaddpixel' pk=link.pk %}" class="text-secondary" data-toggle="tooltip" title="Add/Update Pixel">
+                          <i class="fa fa-pencil"></i>
+                        </a>
+                        {% else %}
+                        <a class="text-secondary" data-toggle="tooltip" title="Not Allowed">
+                          <i class="fa fa-lock"></i>
+                        </a>
+                        {% endif %}
+
+                        {% endif %}
+                        {% endif %}
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+                {% else %}
+                <h3>No Campaign is being run by publisher</h3>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+    </div>
+
+    <!-- begin::footer -->
+    {% include 'includes/_footer.html' %}
+    <!-- end::footer -->
+
+  </div>
+
+  </div>
+
+  </div>
+  <!-- end::main -->
+
+  <!-- Plugin scripts -->
+  <script src="{% static 'vendors/bundle.js' %}"></script>
+
+  <!-- Datatable -->
+  <script src="{% static 'vendors/dataTable/datatables.min.js' %}"></script>
+
+  <script src="{% static 'js/examples/pages/project-list.js' %}"></script>
+
+  <!-- App scripts -->
+  <script src="{% static 'js/app.min.js' %}"></script>
+
+</body>
+
+</html>
