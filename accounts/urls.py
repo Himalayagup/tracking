@@ -13,4 +13,5 @@ urlpatterns = [
     path('owner_register/', views.owner_register.as_view(), name='owner_register'),
     path('login/', views.login_request, name='login'),
     path('logout/', views.logout_view, name='logout'),
+    path('not_allowed', views.NotAllowed.as_view(), name='notallowed'),
 ]

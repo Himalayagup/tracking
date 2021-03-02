@@ -475,6 +475,11 @@
                 <a href="#">Visual Data</a>
               </li>
               {% if user.is_publisher %}
+              {% if request.resolver_match.url_name == "datatata" %}
+              <li>
+                <a class="active" style="cursor:pointer;">{{campaign.campaign_name}}: Report</a>
+              </li>
+              {% endif %}
               {% if request.resolver_match.url_name == "campaign_reports" %}
               <li>
                 <a class="active" href="{% url 'campaign_reports' %}">Campaign Reports</a>
@@ -705,7 +710,7 @@
                   <div>
                     <figure class="avatar mr-2">
                       <span class="avatar-title bg-info rounded-circle">
-                        <i class="ti-user"></i>
+                        <i class="fa fa-user"></i>
                       </span>
                     </figure>
                   </div>

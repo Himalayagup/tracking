@@ -49,6 +49,28 @@
           </ol>
         </nav>
       </div>
+      <!-- <form class="" method="GET">
+        {{filter.form}}
+        <button type="submit" name="submit">Search</button>
+      </form> -->
+      <form method="GET">
+        <div class="form-row">
+
+          <div class="col-md-4 mb-3">
+            <label>Start Date</label>
+            {{filter.form.start_date}}
+          </div>
+          <div class="col-md-4 mb-3">
+            <label>End Date</label>
+            {{filter.form.end_date}}
+          </div>
+          <div class="col-md-4 mb-3">
+            <label>Date Range</label>
+            {{filter.form.date_range}}
+          </div>
+          <button class="btn btn-primary" type="submit" name="submit">Search</button>
+        </div>
+      </form>
 
       <div class="row">
         <div class="col-md-12">
@@ -57,7 +79,7 @@
             <div class="card-body">
               <div class="table-responsive">
                 {% if objectviewed_list %}
-                <table id="project-list" class="table table-lg">
+                <table id="myTable" class="table table-striped table-bordered">
                   <thead>
                     <tr>
                       <th>ID</th>
@@ -70,16 +92,18 @@
                   </thead>
                   <tbody>
                     <tr></tr>
-                    {% for lead in objectviewed_list %}
+                    {% for lead in filter.qs %}
                     <tr>
                       <td>
                         <span>{{ lead.pk }}</span>
                       </td>
                       <td class="text-center">
-                        <span>{{ lead.content_object.user.company_name }}</span>
+                        <a href="{% url 'clickdetail' pk=lead.object_id %}">
+                          <span class="text-info">{{ lead.content_object.user.company_name }}</span>
+                        </a>
                       </td>
                       <td class="text-center">
-                        <span class="text-info">{{ lead.content_object.campaign }}</span>
+                        <span>{{ lead.content_object.campaign }}</span>
                       </td>
                       <td class="text-center">{{lead.ip_address}}</td>
                       <td class="text-center">{{lead.timestamp}}</td>
@@ -111,7 +135,6 @@
 
   </div>
   <!-- end::main -->
-
   <!-- Plugin scripts -->
   <script src="{% static 'vendors/bundle.js' %}"></script>
 

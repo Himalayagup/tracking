@@ -6,7 +6,6 @@ from .utils import get_client_ip, get_publisher, get_campaign, get_campaign_id, 
 # Create your models here.
 
 # click/visit recorder
-
 # Click/Visit Model
 
 
@@ -26,6 +25,7 @@ class ObjectViewed(models.Model):
         ordering = ['-timestamp']
         verbose_name = 'Object Viewed'
         verbose_name_plural = 'Objects Viewed'
+
 
 # Click/Visit Model Data Receiver
 

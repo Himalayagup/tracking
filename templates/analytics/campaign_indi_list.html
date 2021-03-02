@@ -54,6 +54,10 @@
         </div>
         {% endif %}
       </div>
+      <form class="" method="GET">
+        {{filter.form}}
+        <button type="submit" name="submit">Search</button>
+      </form>
 
       <div class="row">
         <div class="col-md-12">
@@ -62,7 +66,7 @@
             <div class="card-body">
               <div class="table-responsive">
                 {% if campaigntopublisher_list %}
-                <table id="project-list" class="table table-lg">
+                <table id="myTable" class="table table-striped table-bordered">
                   <thead>
                     <tr>
                       <th>ID</th>
@@ -72,7 +76,7 @@
                   </thead>
                   <tbody>
                     <tr></tr>
-                    {% for link in campaigntopublisher_list %}
+                    {% for link in filter.qs %}
                     <tr>
                       <td>
                         <span>{{ link.pk }}</span>

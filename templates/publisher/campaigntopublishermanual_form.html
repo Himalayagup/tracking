@@ -56,7 +56,7 @@
           <div class="card">
             <div class="card-body">
               <!-- form -->
-              {% if user.is_publisher %}
+              {% if user.is_manager or user.is_owner %}
               <form method="POST" novalidate>
                 {% csrf_token %}
                 {% for field in form.visible_fields %}
@@ -71,7 +71,7 @@
                 <input type="submit" value="Submit" class="btn btn-primary btn-block">
               </form>
               {% else %}
-              <h3>Must be an publisher to apply for campaign</h3>
+              <h3>Not Allowed</h3>
               {% endif %}
 
             </div>

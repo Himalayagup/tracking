@@ -66,3 +66,7 @@ def login_request(request):
 def logout_view(request):
     logout(request)
     return redirect('/')
+
+
+class NotAllowed(TemplateView):
+    template_name = 'accounts/not_allowed.html'

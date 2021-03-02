@@ -60,7 +60,7 @@
           <div class="card">
             <div class="card-body">
               <div class="table-responsive">
-                <table id="project-list" class="table table-lg">
+                <table id="myTable" class="table table-striped table-bordered">
                   <thead>
                     <tr>
                       <th>ID - Affiliate/Publisher</th>
@@ -76,12 +76,26 @@
                     {% for publisher in campaign.publisher_campaign.all %}
                     <tr>
                       <td>
-                        <span>{{publisher.pk}} - {{publisher.company_name}}</span>
+                        <a class="text-info" href="http://192.168.29.16:8000/analytic/leads/?campaign={{request.session.campaign_detail}}&publisher={{publisher.company_name}}&start_date={% now 'Y-m-j' %}&end_date=&date_range=&submit=">
+                          <span>{{publisher.pk}} - {{publisher.company_name}}</span>
+                        </a>
                       </td>
                       <td class="text-center">
-                        <span>{{click.count}}</span>
+                        <span>
+                          {% for key, value in click_data %}
+                          {% if key == publisher.company_name %}
+                          {{value}}
+                          {% endif %}
+                          {% endfor %}
+                        </span>
                       </td>
-                      <td class="text-center">{{lead.count}}</td>
+                      <td class="text-center">
+                        {% for key, value in lead_data %}
+                        {% if key == publisher.company_name %}
+                        {{value}}
+                        {% endif %}
+                        {% endfor %}
+                      </td>
                       <td class="text-center"> %</td>
                       <td class="text-center">0</td>
                       <td class="text-center">0</td>

@@ -12,6 +12,7 @@ from analytics.mixins import ObjectViewMixin
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from accounts.decorators import owner_required, manager_or_owner_required
+from analytics.filters import CampaignIndividaulFilter
 # Create your views here.
 
 
@@ -79,6 +80,12 @@ class CampaignList(ListView):
 
     # specify the model for list view
     model = Campaign
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter'] = CampaignIndividaulFilter(
+            self.request.GET, queryset=self.get_queryset())
+        return context
 
 
 @method_decorator([login_required, manager_or_owner_required], name='dispatch')

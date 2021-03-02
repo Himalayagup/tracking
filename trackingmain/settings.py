@@ -25,7 +25,7 @@ SECRET_KEY = '5(+t&q@@qp5#xb%qjcyyg$133p6!48sn+a7axlf43)8c%g!_8g'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.29.16', '127.0.0.1']
+ALLOWED_HOSTS = ['192.168.29.16', '127.0.0.1', '192.168.29.84', '192.168.0.36']
 
 
 # Application definition
@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'bootstrap4',
     'widget_tweaks',
     'mathfilters',
+    'django_filters',
+    'bootstrap_datepicker_plus',
     # our apps
     'agency',
     'advertiser',
