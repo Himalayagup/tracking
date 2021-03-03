@@ -30,3 +30,4 @@ urlpatterns = [
     path('accounts/', include("django.contrib.auth.urls")),
 
 ]
+urlpatterns += staticfiles_urlpatterns()
