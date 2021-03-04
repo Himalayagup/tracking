@@ -101,8 +101,8 @@ else:
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'NAME': 'trackingdb',
-            'USER': 'tracking_admin',
-            'PASSWORD': 'tracking@123@Golden',
+            'USER': 'track_admin',
+            'PASSWORD': 'tracking@Golden@123',
             'HOST': 'localhost',
             'PORT': '',
         }
