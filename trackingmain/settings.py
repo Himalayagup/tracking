@@ -102,7 +102,7 @@ else:
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'NAME': 'trackingdb',
             'USER': 'tracking_admin',
-            'PASSWORD': 'tracking@Golden@123',
+            'PASSWORD': 'tracking@123@Golden',
             'HOST': 'localhost',
             'PORT': '',
         }
