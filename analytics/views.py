@@ -86,11 +86,18 @@ class CampaignDataIndiDetail(DetailView):
         return context
 
 
+def is_valid_queryparam(param):
+    return param != '' and param is not None
+
+
 class CampaignWiseReport(ListView):
     model = Campaign
     template_name = 'analytics/campaign_list.html'
 
     def get_context_data(self, *args, **kwargs):
+        min_date = self.request.GET.get('date_min')
+        max_date = self.request.GET.get('date_max')
+        print(min_date)
         context = super(CampaignWiseReport,
                         self).get_context_data(**kwargs)
         context['click'] = ObjectViewed.objects.all()
@@ -100,6 +107,12 @@ class CampaignWiseReport(ListView):
         for campaign in Campaign.objects.all():
             lead_data = ObjectLead.objects.filter(
                 campaign=campaign.campaign_name).count()
+            if is_valid_queryparam(min_date):
+                lead_data = ObjectLead.objects.filter(
+                    campaign=campaign.campaign_name).filter(lead_timestamp__gte=min_date).count()
+            if is_valid_queryparam(max_date):
+                lead_data = ObjectLead.objects.filter(
+                    campaign=campaign.campaign_name).filter(lead_timestamp__lt=max_date).count()
             dict_lead[campaign.campaign_name] = lead_data
             context['lead_data'] = (dict_lead.items())
         # for click data
