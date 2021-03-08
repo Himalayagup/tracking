@@ -39,14 +39,29 @@
 
     <div class="content">
       <form method="GET" action=".">
+
         <div class="form-row">
-          <div class="form-group col-md-12 col-lg-6">
+          <!-- <div class="form-group col-md-12 col-lg-12">
+            <label for="campaignName">Campaign</label>
+            <input type="search" class="form-control" name="campaignSearch">
+          </div> -->
+          <div class="form-group col-md-12 col-lg-4">
             <label for="publishDateMin">Start Date</label>
             <input type="date" class="form-control" id="publishDateMin" name="date_min">
           </div>
-          <div class="form-group col-md-12 col-lg-6">
+          <div class="form-group col-md-12 col-lg-4">
             <label for="publishDateMax">End Date</label>
             <input type="date" class="form-control" id="publishDateMax" name="date_max">
+          </div>
+          <div class="form-group col-md-12 col-lg-4">
+            <label for="dateRange">Date Range</label>
+            <select name="dateRange" id="dateRange" class="form-control">
+              <option value="today">Today</option>
+              <option value="yesterday">Yesterday</option>
+              <option value="week">Past 7 Days</option>
+              <option value="month">This Month</option>
+              <option value="year">This Year</option>
+            </select>
           </div>
         </div>
 
