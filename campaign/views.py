@@ -13,6 +13,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from accounts.decorators import owner_required, manager_or_owner_required
 from analytics.filters import CampaignIndividaulFilter
+from .filters import CampaignStatusFilter
 # Create your views here.
 
 
@@ -20,7 +21,7 @@ class HomePage(TemplateView):
     template_name = 'campaign/index.html'
 
 
-@method_decorator([login_required, manager_or_owner_required], name='dispatch')
+@method_decorator([login_required, manager_or_owner_required(login_url='../../accounts/not_allowed')], name='dispatch')
 class CampaignDetail(DetailView):
     model = Campaign
 
@@ -53,7 +54,7 @@ class CampaignToPublisherDetail(ObjectViewMixin, DetailView):
         return response
 
 
-@method_decorator([login_required, manager_or_owner_required], name='dispatch')
+@method_decorator([login_required, manager_or_owner_required(login_url='../../accounts/not_allowed')], name='dispatch')
 class CampaignCreate(CreateView):
 
     # specify the model for create view
@@ -85,10 +86,13 @@ class CampaignList(ListView):
         context = super().get_context_data(**kwargs)
         context['filter'] = CampaignIndividaulFilter(
             self.request.GET, queryset=self.get_queryset())
+        context['filter1'] = CampaignStatusFilter(
+            self.request.GET, queryset=self.get_queryset())
+
         return context
 
 
-@method_decorator([login_required, manager_or_owner_required], name='dispatch')
+@method_decorator([login_required, manager_or_owner_required(login_url='../../accounts/not_allowed')], name='dispatch')
 class CampaignUpdateView(UpdateView):
     # specify the model you want to use
     template_name = "campaign/campaign_update_form.html"
@@ -114,7 +118,7 @@ class CampaignUpdateView(UpdateView):
     success_url = "/campaign"
 
 
-@method_decorator([login_required, owner_required], name='dispatch')
+@method_decorator([login_required, owner_required(login_url='../../accounts/not_allowed')], name='dispatch')
 class CampaignDeleteView(DeleteView):
     # specify the model you want to use
     model = Campaign

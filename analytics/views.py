@@ -49,7 +49,7 @@ class ObjectLeadList(ListView):
         return context
 
 
-@method_decorator([login_required, publisher_required], name='dispatch')
+@method_decorator([login_required, publisher_required(login_url='../../accounts/not_allowed')], name='dispatch')
 class CampaignIndividaulList(ListView):
     # specify the model for list view
     model = CampaignToPublisher
