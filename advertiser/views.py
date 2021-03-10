@@ -13,7 +13,7 @@ class HomePage(TemplateView):
     template_name = 'advertiser/index.html'
 
 
-@method_decorator([login_required, manager_or_owner_required], name='dispatch')
+@method_decorator([login_required, manager_or_owner_required(login_url='../../accounts/not_allowed')], name='dispatch')
 class AdvertiserCreate(CreateView):
 
     # specify the model for create view
@@ -31,14 +31,14 @@ class AdvertiserCreate(CreateView):
               ]
 
 
-@method_decorator([login_required, manager_or_owner_required], name='dispatch')
+@method_decorator([login_required, manager_or_owner_required(login_url='../../accounts/not_allowed')], name='dispatch')
 class AdvertiserList(ListView):
 
     # specify the model for list view
     model = Advertiser
 
 
-@method_decorator([login_required, manager_or_owner_required], name='dispatch')
+@method_decorator([login_required, manager_or_owner_required(login_url='../../accounts/not_allowed')], name='dispatch')
 class AdvertiserUpdateView(UpdateView):
     # specify the model you want to use
     template_name = "advertiser/advertiser_update_form.html"
@@ -60,7 +60,7 @@ class AdvertiserUpdateView(UpdateView):
     success_url = "/advertiser"
 
 
-@method_decorator([login_required, owner_required], name='dispatch')
+@method_decorator([login_required, owner_required(login_url='../../accounts/not_allowed')], name='dispatch')
 class AdvertiserDeleteView(DeleteView):
     # specify the model you want to use
     model = Advertiser

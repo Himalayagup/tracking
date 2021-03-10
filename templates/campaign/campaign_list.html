@@ -37,7 +37,19 @@
   <div class="content-body">
 
     <div class="content">
+      {% if user.is_manager or user.is_owner %}
+      <form method="GET">
+        <div class="form-row">
 
+          <div class="col-md-4 mb-3">
+            <label>Status</label>
+            {{filter1.form.status}}
+          </div>
+
+          <button class="btn btn-primary" type="submit" name="submit">Search</button>
+        </div>
+      </form>
+      {% endif %}
 
       <div class="page-header justify-content-between">
         <nav aria-label="breadcrumb">
@@ -87,7 +99,7 @@
                   </thead>
                   <tbody>
                     <tr></tr>
-                    {% for campaign in campaign_list %}
+                    {% for campaign in filter1.qs %}
                     {% if user.is_owner or user.is_manager %}
                     <tr>
                       <td>
