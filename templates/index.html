@@ -1,0 +1,378 @@
+{% load static %}
+{% load widget_tweaks %}
+{% load mathfilters %}
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Golden Beacon - Dashboard</title>
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="{% static 'media/image/favicon.png' %}" />
+
+  <!-- Plugin styles -->
+  <link rel="stylesheet" href="{% static 'vendors/bundle.css' %}" type="text/css">
+
+  <!-- Slick -->
+  <link rel="stylesheet" href="{% static 'vendors/slick/slick.css' %}" type="text/css">
+  <link rel="stylesheet" href="{% static 'vendors/slick/slick-theme.css' %}" type="text/css">
+
+  <!-- Daterangepicker -->
+  <link rel="stylesheet" href="{% static 'vendors/datepicker/daterangepicker.css' %}" type="text/css">
+
+  <!-- DataTable -->
+  <link rel="stylesheet" href="{% static 'vendors/dataTable/datatables.min.css' %}" type="text/css">
+
+  <!-- App styles -->
+  <link rel="stylesheet" href="{% static 'css/app.min.css' %}" type="text/css">
+  <link rel="stylesheet" href="{% static 'css/tiicon.css' %}" type="text/css">
+
+
+  <!-- Font awesome -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body class="">
+  <!-- begin::preloader-->
+  <div class="preloader">
+    <div class="preloader-icon"></div>
+  </div>
+  <!-- end::preloader -->
+
+  {% include 'includes/_sidemenu.html' %}
+
+  <div class="content-body">
+
+    <div class="content">
+
+
+      <div class="page-header">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href=index.html>Master</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+          </ol>
+        </nav>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+
+          <div class="row">
+            <div class="col-lg-4 col-md-12">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between mb-3">
+                    <div>
+                      <p class="text-muted">Today Clicks</p>
+                      <h2 class="font-weight-bold">{{view_today.count}}</h2>
+                    </div>
+                    <div>
+                      <figure class="avatar">
+                        <span class="avatar-title bg-success-bright text-success rounded-circle">
+                          <i class="fa fa-bar-chart"></i>
+                        </span>
+                      </figure>
+                    </div>
+                  </div>
+                  {% if view_today.count > view_yesterday.count %}
+                  {% if view_yesterday.count == 0 %}
+                  <div class="d-inline-flex align-items-center">
+                    <span class="text-success d-inline-flex align-items-center mr-2">
+                      <span class="fa fa-arrow-up mr-2"></span> 100%
+                    </span> Up from yesterday (Yesterday View: {{View_yesterday.count}})
+                  </div>
+                  {% else %}
+                  <div class="d-inline-flex align-items-center">
+                    <span class="text-success d-inline-flex align-items-center mr-2">
+                      <span class="fa fa-arrow-up mr-2"></span>
+                      {{view_today.count|sub:view_yesterday.count|div:view_yesterday.count|mul:100|floatformat:2}} %
+                    </span> Up from yesterday
+                  </div>
+                  {% endif %}
+                  {% elif view_today.count < view_yesterday.count %}
+                  {% if view_today.count == 0 %}
+                  <div class="d-inline-flex align-items-center">
+                    <span class="text-danger d-inline-flex align-items-center mr-2">
+                      <span class="fa fa-arrow-down mr-2"></span> 100%
+                    </span> Down from yesterday (Today's Views: {{view_today.count}})
+                  </div>
+                  {% else %}
+                  <div class="d-inline-flex align-items-center">
+                    <span class="text-danger d-inline-flex align-items-center mr-2">
+                      <span class="fa fa-arrow-down mr-2"></span>
+                      {{view_yesterday.count|sub:view_today.count|div:view_yesterday.count|mul:100|floatformat:2}}%
+                    </span> Down from yesterday
+                  </div>
+                  {% endif %}
+                  {% elif view_today.count == view_yesterday.count %}
+                  <div class="d-inline-flex align-items-center">
+                    <span class="text-success d-inline-flex align-items-center mr-2">
+                      <span class="fa fa-ioxhost mr-2"></span>
+                    </span> Both days clicks data is equal
+                  </div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-12">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between mb-3">
+                    <div>
+                      <p class="text-muted">Today's Leads</p>
+                      <h2 class="font-weight-bold">{{lead_today.count}}</h2>
+                    </div>
+                    <div>
+                      <figure class="avatar">
+                        <span class="avatar-title bg-info-bright text-info rounded-circle">
+                          <i class="fa fa-cubes"></i>
+                        </span>
+                      </figure>
+                    </div>
+                  </div>
+                  {% if lead_today.count > lead_yesterday.count %}
+                  {% if lead_yesterday.count == 0 %}
+                  <div class="d-inline-flex align-items-center">
+                    <span class="text-success d-inline-flex align-items-center mr-2">
+                      <span class="fa fa-arrow-up mr-2"></span> 100%
+                    </span> Up from yesterday (Yesterday Leads: {{lead_yesterday.count}})
+                  </div>
+                  {% else %}
+                  <div class="d-inline-flex align-items-center">
+                    <span class="text-success d-inline-flex align-items-center mr-2">
+                      <span class="fa fa-arrow-up mr-2"></span> {{lead_today.count|sub:lead_yesterday.count|div:lead_yesterday.count|mul:100|floatformat:2}}%
+                    </span> Up from yesterday
+                  </div>
+                  {% endif %}
+                  {% elif lead_today.count < lead_yesterday.count %}
+                  {% if lead_today.count == 0 %}
+                  <div class="d-inline-flex align-items-center">
+                    <span class="text-danger d-inline-flex align-items-center mr-2">
+                      <span class="fa fa-arrow-down mr-2"></span> 100%
+                    </span> Down from yesterday (Today's Leads: {{lead_today.count}})
+                  </div>
+                  {% else %}
+                  <div class="d-inline-flex align-items-center">
+                    <span class="text-danger d-inline-flex align-items-center mr-2">
+                      <span class="fa fa-arrow-down mr-2"></span>
+                      {{lead_yesterday.count|sub:lead_today.count|div:lead_yesterday.count|mul:100|floatformat:2}}
+                    </span> Down from yesterday
+                  </div>
+                  {% endif %}
+                  {% elif lead_today.count == lead_yesterday.count %}
+                  <div class="d-inline-flex align-items-center">
+                    <span class="text-success d-inline-flex align-items-center mr-2">
+                      <span class="fa fa-ioxhost mr-2"></span>
+                    </span> Both days lead data is equal
+                  </div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-12">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between mb-3">
+                    <div>
+                      <p class="text-muted">This Month Leads</p>
+                      <h2 class="font-weight-bold">{{lead_month.count}}</h2>
+                    </div>
+                    <div>
+                      <figure class="avatar">
+                        <span class="avatar-title bg-warning-bright text-warning rounded-circle">
+                          <i class="fa fa-refresh"></i>
+                        </span>
+                      </figure>
+                    </div>
+                  </div>
+                  <div class="d-inline-flex align-items-center">
+                    <span class="text-success d-inline-flex align-items-center mr-2">
+                      <span class="fa fa-users mr-2"></span> {{view_month.count}}
+                    </span> (Current Month's Clicks)
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12 col-md-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between">
+                <h6 class="card-title">Revenue</h6>
+                <div>
+                  <a href="#" class="btn btn-outline-light btn-sm mr-2">
+                    <i class="fa fa-refresh"></i>
+                  </a>
+                  <div class="dropdown">
+                    <a href="#" data-toggle="dropdown" class="btn btn-outline-light btn-sm" aria-haspopup="true" aria-expanded="false">
+                      <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                      <a class="dropdown-item" href="#">Action</a>
+                      <a class="dropdown-item" href="#">Another action</a>
+                      <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-lg-4">
+                  <p class="mb-2">This Week</p>
+                  <div class="d-flex align-items-end">
+                    <h2 class="mb-0 line-height-30 font-size-35">$235</h2>
+                    <span class="text-success small ml-2 d-flex align-items-center">
+                      <span class="fa fa-arrow-up mr-2"></span>
+                      <span class="badge badge-success rounded d-inline-flex align-items-center">1.9%</span>
+                    </span>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <p class="mb-2">Last Week</p>
+                  <div class="d-flex align-items-end">
+                    <h2 class="mb-0 line-height-30 font-size-35">$5,180</h2>
+                    <span class="text-danger small ml-2 d-flex align-items-center">
+                      <span class="fa fa-arrow-down mr-2"></span>
+                      <span class="badge badge-danger rounded d-inline-flex align-items-center">1.9%</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div id="revenue"></div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="row">
+        <div class="col-lg-8 col-md-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-md-flex mb-2 mb-sm-0 justify-content-between">
+                <h6 class="card-title">Activities</h6>
+                <div>
+                  <div id="reportrange" class="form-control">
+                    <span></span>
+                  </div>
+                </div>
+              </div>
+              <div id="ecommerce-activity-chart"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-12">
+          <div class="card">
+            <div class="card-body pb-0">
+              <div class="d-flex justify-content-between align-items-start mb-3">
+                <h6 class="card-title mb-0">Pending</h6>
+                <a href="#" class="small">Pending for Approval</a>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-striped mb-0">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Number Pending</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- <tr>
+                    <td>
+                      <a href="#">Publisher</a>
+                    </td>
+                    <td>{{publisher.count}}</td>
+                  </tr> -->
+                  <tr>
+                    <td>
+                      <a href="http://192.168.29.16:8000/campaign/?status=pending&submit=">Campaign <span class="badge badge-danger ml-1">New</span></a>
+                    </td>
+                    <td>{{campaign.count}}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <a href="http://192.168.29.16:8000/publisher/runningcamp?status_cam=pending&submit=">Campaign Request</a>
+                    </td>
+                    <td>{{campaign_request.count}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- begin::footer -->
+    {% include 'includes/_footer.html' %}
+    <!-- end::footer -->
+
+    <!-- </div> -->
+
+  </div>
+
+  </div>
+  <!-- end::main -->
+
+  <!-- Plugin scripts -->
+  <script src="{% static 'vendors/bundle.js' %}">
+  </script>
+
+
+  <!-- Apex chart -->
+  <script src="{% static 'apexcharts.com/samples/assets/irregular-data-series.js' %}"></script>
+  <script src="{% static 'vendors/charts/apex/apexcharts.min.js' %}"></script>
+
+  <!-- Daterangepicker -->
+  <script src="{% static 'vendors/datepicker/daterangepicker.js' %}"></script>
+
+  <!-- DataTable -->
+  <script src="{% static 'vendors/dataTable/datatables.min.js' %}"></script>
+
+  <!-- Dashboard scripts -->
+  <script src="{% static 'js/examples/dashboard.js' %}"></script>
+
+  <!-- Vamp -->
+  <script src="{% static 'vendors/vmap/jquery.vmap.min.js' %}"></script>
+  <script src="{% static 'vendors/vmap/maps/jquery.vmap.usa.js' %}"></script>
+  <script src="{% static 'js/examples/vmap.js' %}"></script>
+
+  <!-- To use theme colors with Javascript -->
+  <div class="colors">
+    <div class="bg-primary"></div>
+    <div class="bg-primary-bright"></div>
+    <div class="bg-secondary"></div>
+    <div class="bg-secondary-bright"></div>
+    <div class="bg-info"></div>
+    <div class="bg-info-bright"></div>
+    <div class="bg-success"></div>
+    <div class="bg-success-bright"></div>
+    <div class="bg-danger"></div>
+    <div class="bg-danger-bright"></div>
+    <div class="bg-warning"></div>
+    <div class="bg-warning-bright"></div>
+  </div>
+
+  <script src="{% static 'js/examples/pages/ecommerce-dashboard.js' %}"></script>
+  <!-- App scripts -->
+  <script src="{% static 'js/app.min.js' %}"></script>
+  <script src="{% static 'vendors/charts/chartjs/chart.min.js' %}"></script>
+  <script src="{% static 'js/examples/charts/chartjs.js' %}"></script>
+
+</body>
+
+</html>

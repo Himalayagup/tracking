@@ -1,0 +1,77 @@
+{% load static %}
+{% load widget_tweaks %}
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Login</title>
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="{% static 'media/image/favicon.png' %}" />
+
+  <!-- Plugin styles -->
+  <link rel="stylesheet" href="{% static 'vendors/bundle.css' %}" type="text/css">
+
+  <!-- App styles -->
+  <link rel="stylesheet" href="{% static 'css/app.min.css' %}" type="text/css">
+</head>
+
+<body class="form-membership">
+
+  <!-- begin::preloader-->
+  <div class="preloader">
+    <div class="preloader-icon"></div>
+  </div>
+  <!-- end::preloader -->
+
+  <div class="form-wrapper">
+
+
+    <!-- logo -->
+    <div id="logo">
+      <img class="logo" src="{% static 'media/image/logo.png' %}" alt="image">
+      <img class="logo-dark" src="{% static 'assets/media/image/logo-dark.html' %}" alt="image">
+    </div>
+    <!-- ./ logo -->
+
+    <h5>Log in</h5>
+
+    <!-- form -->
+    <form action="{% url 'login' %}" method="POST" novalidate>
+      {% csrf_token %}
+      {% for field in form.visible_fields %}
+      <div class="form-group">
+        {{ field.label_tag }}
+        {% render_field field class="form-control" %}
+        {% if messages%}
+        {% for message in messages %}
+        <span style="color:red">{{ message }}</span>
+        {% endfor %}
+        {% endif %}
+        {% endfor %}
+      </div>
+
+      <!-- <div class="form-group d-flex justify-content-between">
+        <a href="recovery-password.html">Reset password</a>
+      </div> -->
+      <input type="submit" value="Login" class="btn btn-primary btn-block">
+      <hr>
+      <p class="text-muted">Don't have an account?</p>
+      <a href="{% url 'accounts:publisher_register' %}" class="btn btn-outline-light btn-sm">Register now!</a>
+    </form>
+    <!-- ./ form -->
+
+
+  </div>
+
+  <!-- Plugin scripts -->
+  <script src="{% static 'vendors/bundle.js' %}"></script>
+
+  <!-- App scripts -->
+  <script src="{% static 'js/app.min.js' %}"></script>
+</body>
+
+</html>

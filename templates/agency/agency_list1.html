@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+
+<body>
+
+  <ul>
+    <!-- Iterate over object_list -->
+    {% for agency in agency_list %}
+    <!-- Display Objects -->
+    <li>
+      <div class="">
+        <h3>{{ agency.agency_name }}</h3>
+        <a href="{% url 'agencyupdate' pk=agency.pk %}">Update</a>
+        <a href="{% url 'agencydelete' pk=agency.pk %}">Delete</a>
+      </div>
+    </li>
+    <!-- <li>{{ object.description }}</li> -->
+
+    <hr />
+    <!-- If objet_list is empty  -->
+    {% empty %}
+    <li>No objects yet.</li>
+    {% endfor %}
+  </ul>
+
+  <div class="">
+
+    <h1>Add New Agency</h1>
+
+    <a href="{% url 'addagency' %}">Click to add</a>
+
+  </div>
+</body>
+
+</html>

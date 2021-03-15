@@ -1,0 +1,238 @@
+{% load static %}
+{% load widget_tweaks %}
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Campaign - Detail</title>
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="{% static 'media/image/favicon.png' %}" />
+
+  <!-- Plugin styles -->
+  <link rel="stylesheet" href="{% static 'vendors/bundle.css' %}" type="text/css">
+
+
+  <!-- App styles -->
+  <link rel="stylesheet" href="{% static 'css/app.min.css' %}" type="text/css">
+  <!-- Font awesome -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<body class="">
+
+  <!-- begin::preloader-->
+  <div class="preloader">
+    <div class="preloader-icon"></div>
+  </div>
+  <!-- end::preloader -->
+  {% include 'includes/_sidemenu.html' %}
+
+  <div class="content-body">
+
+    <div class="content">
+
+
+      <div class="page-header justify-content-between">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="{% url 'campaignlist' %}">Campaigns</a>
+            </li>
+            <li class="breadcrumb-item" aria-current="page">{{campaign}}</li>
+            <li class="breadcrumb-item active" aria-current="page">Detail</li>
+          </ol>
+        </nav>
+        <div>
+          <a href="{% url 'campaignupdate' pk=campaign.campaign_key %}" class="btn btn-success">
+            <i class="fa fa-pencil mr-1"></i> Edit
+          </a>
+          <a href="{% url 'campaigndelete' pk=campaign.campaign_key %}" class="btn btn-danger ml-1">
+            <i class="fa fa-trash-o mr-1"></i> Delete
+          </a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+
+          <div class="row">
+            <div class="col-lg-8 col-md-12">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between mb-4">
+                    <div class="d-flex">
+                      <div>
+                      </div>
+                      <div>
+                        <h3 class="mt-0">{{campaign.campaign_name}}</h3>
+                        <br>
+                        <strong>Status: </strong><span class="badge bg-info-bright text-info"> {{campaign.status | capfirst}}</span>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="dropdown ml-auto">
+                        <a href="#" class="btn btn-sm btn-outline-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                          <a href="#" class="dropdown-item">Report</a>
+                          <a href="{% url 'campaignupdate' pk=campaign.campaign_key %}" class="dropdown-item">Edit</a>
+                          <a href="{% url 'campaigndelete' pk=campaign.campaign_key %}" class="dropdown-item text-danger">Delete</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {% if campaign.advertiser %}
+                  <p><strong>Advertiser: </strong>{{campaign.advertiser | capfirst}}</p>
+                  {% endif %}
+                  {% if campaign.campaign_type %}
+                  <p><strong>Campaign Type: </strong>{{campaign.campaign_type | upper}}</p>
+                  {% endif %}
+                  {% if campaign.campaign_category %}
+                  <p><strong>Campaign Category: </strong>{{campaign.campaign_category | capfirst}}</p>
+                  {% endif %}
+                  {% if campaign.comment %}
+                  <p><strong>Comment: </strong>{{campaign.comment | capfirst}}</p>
+                  {% endif %}
+
+                  <div class="row my-4">
+                    <div class="col-md-3">
+                      <p class="mb-2">Start Date:</p>
+                      <div>
+                        <i class="fa fa-calendar mr-1"></i>
+                        {{campaign.start_date}}
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <p class="mb-2">End Date:</p>
+                      <div>
+                        <i class="fa fa-calendar mr-1"></i>
+                        {{campaign.end_date}}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row my-8">
+                    <div class="col-md-6">
+                      <p class="mb-2">Landing URL:</p>
+                      <div>
+                        <i class="fa fa-link mr-1"></i>
+                        {{campaign.landing_url}}
+                        <br>
+                        <i class="fa fa-external-link mr-1"></i>
+                        <a target="_blank" href="{{campaign.landing_url}}">Click to Visit</a>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <p class="mb-2">Expiry Date:</p>
+                      <div>
+                        <i class="fa fa-link mr-1"></i>
+                        {{campaign.expire_url}}
+                        <br>
+                        <i class="fa fa-external-link mr-1"></i>
+                        <a target="_blank" href="{{campaign.expire_url}}">Click to Visit</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-lg-4 col-md-12">
+
+              <div class="card">
+                <div class="card-body">
+                  <h6 class="card-title">Campaign Running by</h6>
+                  <ul class="list-group list-group-flush">
+                    {% for publisher in campaign.publisher_campaign.all %}
+                    <li class="list-group-item d-flex align-items-center pl-0 pr-0">
+                      <div>
+                      </div>
+                      <div>
+                        <h6>{{publisher.company_name}}</h6>
+                        <span class="badge badge-dark mr-2 d-sm-inline d-none">{{publisher.email}}</span>
+                      </div>
+                      <div class="ml-auto">
+
+                        <div class="dropdown">
+                          <a href="#" data-toggle="dropdown" class="btn btn-outline-light btn-sm" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+                          </a>
+                          <div class="dropdown-menu dropdown-menu-right">
+                            <a href="#" class="dropdown-item">Check Report</a>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+    </div>
+
+    <!-- begin::footer -->
+    {% include 'includes/_footer.html' %}
+    <!-- end::footer -->
+
+  </div>
+
+  </div>
+
+  </div>
+  <!-- end::main -->
+
+  <!-- Plugin scripts -->
+  <script src="{% static 'vendors/bundle.js' %}"></script>
+
+
+  <!-- Apex chart -->
+  <script src="{% static 'vendors/charts/apex/apexcharts.min.js' %}"></script>
+
+  <!-- Chartjs -->
+  <script src="{% static 'vendors/charts/chartjs/chart.min.js' %}"></script>
+
+  <!-- Circle progress -->
+  <script src="{% static 'vendors/circle-progress/circle-progress.min.js' %}"></script>
+
+  <!-- Datepicker -->
+  <script src="{% static 'vendors/datepicker/daterangepicker.js' %}"></script>
+
+  <!-- Peity -->
+  <script src="{% static 'vendors/charts/peity/jquery.peity.min.js' %}"></script>
+  <script src="{% static 'js/examples/charts/peity.js' %}"></script>
+
+  <!-- Dashboard scripts -->
+  <script src="{% static 'js/examples/dashboard.js' %}"></script>
+  <div class="colors">
+    <!-- To use theme colors with Javascript -->
+    <div class="bg-primary"></div>
+    <div class="bg-primary-bright"></div>
+    <div class="bg-secondary"></div>
+    <div class="bg-secondary-bright"></div>
+    <div class="bg-info"></div>
+    <div class="bg-info-bright"></div>
+    <div class="bg-success"></div>
+    <div class="bg-success-bright"></div>
+    <div class="bg-danger"></div>
+    <div class="bg-danger-bright"></div>
+    <div class="bg-warning"></div>
+    <div class="bg-warning-bright"></div>
+  </div>
+
+
+  <!-- App scripts -->
+  <script src="{% static 'js/app.min.js' %}"></script>
+
+</body>
+
+</html>
