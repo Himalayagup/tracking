@@ -15,6 +15,7 @@ import csv
 
 from django.shortcuts import render
 from django.http import HttpResponse
+from datetime import datetime, timedelta, time
 # Create your views here.
 
 
@@ -48,7 +49,7 @@ class ObjectLeadList(ListView):
         return context
 
 
-@method_decorator([login_required, publisher_required], name='dispatch')
+@method_decorator([login_required, publisher_required(login_url='../../accounts/not_allowed')], name='dispatch')
 class CampaignIndividaulList(ListView):
     # specify the model for list view
     model = CampaignToPublisher
@@ -90,6 +91,11 @@ def is_valid_queryparam(param):
     return param != '' and param is not None
 
 
+today_fil = datetime.now()
+yesterday = datetime.now() - timedelta(days=1)
+week = datetime.now() - timedelta(days=7)
+
+
 class CampaignWiseReport(ListView):
     model = Campaign
     template_name = 'analytics/campaign_list.html'
@@ -97,7 +103,8 @@ class CampaignWiseReport(ListView):
     def get_context_data(self, *args, **kwargs):
         min_date = self.request.GET.get('date_min')
         max_date = self.request.GET.get('date_max')
-        print(min_date)
+        date_range = self.request.GET.get('dateRange')
+        campaign_serach = self.request.GET.get('campaignSearch')
         context = super(CampaignWiseReport,
                         self).get_context_data(**kwargs)
         context['click'] = ObjectViewed.objects.all()
@@ -113,6 +120,22 @@ class CampaignWiseReport(ListView):
             if is_valid_queryparam(max_date):
                 lead_data = ObjectLead.objects.filter(
                     campaign=campaign.campaign_name).filter(lead_timestamp__lt=max_date).count()
+            if is_valid_queryparam(date_range):
+                if date_range == "today":
+                    lead_data = ObjectLead.objects.filter(
+                        campaign=campaign.campaign_name).filter(lead_timestamp__day=today_fil.day).count()
+                if date_range == "yesterday":
+                    lead_data = ObjectLead.objects.filter(
+                        campaign=campaign.campaign_name).filter(lead_timestamp__day=yesterday.day).count()
+                if date_range == "week":
+                    lead_data = ObjectLead.objects.filter(
+                        campaign=campaign.campaign_name).filter(lead_timestamp__gte=week).count()
+                if date_range == "month":
+                    lead_data = ObjectLead.objects.filter(
+                        campaign=campaign.campaign_name).filter(lead_timestamp__year=today_fil.year, lead_timestamp__month=today_fil.month).count()
+                if date_range == "year":
+                    lead_data = ObjectLead.objects.filter(
+                        campaign=campaign.campaign_name).filter(lead_timestamp__year=today_fil.year).count()
             dict_lead[campaign.campaign_name] = lead_data
             context['lead_data'] = (dict_lead.items())
         # for click data
@@ -120,8 +143,32 @@ class CampaignWiseReport(ListView):
         for campaign in Campaign.objects.all():
             val_filter = Q(
                 try_new__campaign=campaign.campaign_key)
+
             click_data = ObjectViewed.objects.all().filter(
                 val_filter).count()
+
+            if is_valid_queryparam(min_date):
+                click_data = ObjectViewed.objects.all().filter(
+                    val_filter).filter(timestamp__gte=min_date).count()
+            if is_valid_queryparam(max_date):
+                click_data = ObjectViewed.objects.all().filter(
+                    val_filter).filter(timestamp__lt=max_date).count()
+            if is_valid_queryparam(date_range):
+                if date_range == "today":
+                    click_data = ObjectViewed.objects.all().filter(
+                        val_filter).filter(timestamp__day=today_fil.day).count()
+                if date_range == "yesterday":
+                    click_data = ObjectViewed.objects.all().filter(
+                        val_filter).filter(timestamp__day=yesterday.day).count()
+                if date_range == "week":
+                    click_data = ObjectViewed.objects.all().filter(
+                        val_filter).filter(timestamp__gte=week).count()
+                if date_range == "month":
+                    click_data = ObjectViewed.objects.all().filter(
+                        val_filter).filter(timestamp__year=today_fil.year, timestamp__month=today_fil.month).count()
+                if date_range == "year":
+                    click_data = ObjectViewed.objects.all().filter(
+                        val_filter).filter(timestamp__year=today_fil.year).count()
             dict_click[campaign.campaign_name] = click_data
             context['click_data'] = sorted(dict_click.items())
         return context
