@@ -13,7 +13,7 @@ class HomePage(TemplateView):
     template_name = 'agency/index.html'
 
 
-@method_decorator([login_required, manager_or_owner_required(login_url='../../accounts/not_allowed')], name='dispatch')
+@method_decorator([login_required, manager_or_owner_required], name='dispatch')
 class AgencyCreate(CreateView):
 
     # specify the model for create view
@@ -29,14 +29,14 @@ class AgencyCreate(CreateView):
               "alternate_number", ]
 
 
-@method_decorator([login_required, manager_or_owner_required(login_url='../../accounts/not_allowed')], name='dispatch')
+@method_decorator([login_required, manager_or_owner_required], name='dispatch')
 class AgencyList(ListView):
 
     # specify the model for list view
     model = Agency
 
 
-@method_decorator([login_required, manager_or_owner_required(login_url='../../accounts/not_allowed')], name='dispatch')
+@method_decorator([login_required, manager_or_owner_required], name='dispatch')
 class AgencyUpdateView(UpdateView):
     # specify the model you want to use
     template_name = "agency/agency_update_form.html"
@@ -56,7 +56,7 @@ class AgencyUpdateView(UpdateView):
     success_url = "/agency"
 
 
-@method_decorator([login_required, owner_required(login_url='../../accounts/not_allowed')], name='dispatch')
+@method_decorator([login_required, owner_required], name='dispatch')
 class AgencyDeleteView(DeleteView):
     # specify the model you want to use
     model = Agency
