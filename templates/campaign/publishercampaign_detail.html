@@ -3,7 +3,16 @@
 
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="refresh" content="0;url={{publishercampaign.campaign.landing_url}}" />
+  {% if publishercampaign.campaign.status == 'active' %}
+  {% if {% now "y-m-d" %} >= publishercampaign.campaign.start_date and if publishercampaign.campaign.end_date
+  <= {% now "y-m-d" %} %} <meta http-equiv="refresh" content="0;url={{publishercampaign.campaign.landing_url}}" />
+  {% else %}
+  <meta http-equiv="refresh" content="0;url={{publishercampaign.campaign.expire_url}}" />
+  {% endif %}
+  {% else %}
+  <meta http-equiv="refresh" content="0;url={{publishercampaign.campaign.expire_url}}" />
+  {% endif %}
+  {% endif %}
   <title></title>
 </head>
 

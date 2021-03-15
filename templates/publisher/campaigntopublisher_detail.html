@@ -2,8 +2,26 @@
 <html lang="en" dir="ltr">
 
 <head>
+  {% now "Y-m-d" as todays_date %}
   <meta charset="utf-8">
+  {% if campaigntopublisher.campaign.status == 'active' %}
+  {% if campaigntopublisher.status_cam == 'active' %}
+  {% if todays_date >= campaigntopublisher.campaign.start_date|date:"Y-m-d" %}
+  {% if todays_date <= campaigntopublisher.campaign.end_date|date:"Y-m-d" %}
   <meta http-equiv="refresh" content="0;url={{campaigntopublisher.campaign.landing_url}}" />
+  {% else %}
+  <meta http-equiv="refresh" content="0;url={{campaigntopublisher.campaign.expire_url}}" />
+  {% endif %}
+  {% else %}
+  <meta http-equiv="refresh" content="0;url={{campaigntopublisher.campaign.expire_url}}" />
+  {% endif %}
+  {% else %}
+  <meta http-equiv="refresh" content="0;url={{campaigntopublisher.campaign.expire_url}}" />
+  {% endif %}
+  {% else %}
+  <meta http-equiv="refresh" content="0;url={{campaigntopublisher.campaign.expire_url}}" />
+  {% endif %}
+
   <title></title>
 </head>
 

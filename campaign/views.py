@@ -30,6 +30,7 @@ class CampaignDetail(DetailView):
 #     model = Campaign
 #     count_hit = True
 
+
 class CampaignToPublisherDetail(ObjectViewMixin, DetailView):
     template_name = "publisher/campaigntopublisher_detail.html"
     model = CampaignToPublisher
