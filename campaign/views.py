@@ -14,6 +14,7 @@ from django.contrib.auth.decorators import login_required
 from accounts.decorators import owner_required, manager_or_owner_required
 from analytics.filters import CampaignIndividaulFilter
 from .filters import CampaignStatusFilter
+from datetime import datetime, timedelta, time, date
 # Create your views here.
 
 
@@ -29,6 +30,8 @@ class CampaignDetail(DetailView):
 # class CampaignDetail(HitCountDetailView):
 #     model = Campaign
 #     count_hit = True
+today_date = date.today()
+
 
 class CampaignToPublisherDetail(ObjectViewMixin, DetailView):
     template_name = "publisher/campaigntopublisher_detail.html"
@@ -41,6 +44,7 @@ class CampaignToPublisherDetail(ObjectViewMixin, DetailView):
         self.request.session['publisher_id'] = self.object.user.pk
         self.request.session['campaign'] = self.object.campaign.campaign_name
         self.request.session['campaign_id'] = self.object.campaign.campaign_key
+        context['today_date'] = today_date
         return context
 
     def render_to_response(self, context, **response_kwargs):

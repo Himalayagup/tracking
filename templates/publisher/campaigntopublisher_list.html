@@ -112,7 +112,7 @@
 
                       <td class="text-center">
                         {% if link.status_cam == "active" %}
-                        <p>127.0.0.1:8000/campaign/visit-slug/{{link.pk}}</p>
+                        <p>http://www.kagayaki.co.in/campaign/visit-slug/{{link.pk}}</p>
                         <p><a target="_blank" href="{% url 'camppubdetail' pk=link.pk %}">Try link</a></p>
                         {% else %}
                         <p>must be active</p>
