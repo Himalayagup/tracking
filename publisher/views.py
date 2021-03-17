@@ -17,6 +17,7 @@ from django.contrib.auth.decorators import login_required
 from accounts.decorators import owner_required, publisher_required, manager_or_owner_required
 from analytics.mixins import ObjectLeadMixin
 from .filters import CampaignStatuFilter
+from django.views.decorators.clickjacking import xframe_options_exempt
 # Create your views here.
 
 
@@ -56,7 +57,7 @@ class HomePage(TemplateView):
 
 # Publisher applying for campaigns
 
-
+@xframe_options_exempt
 class ReadingSession(ObjectLeadMixin, TemplateView):
     template_name = 'session.html'
 
