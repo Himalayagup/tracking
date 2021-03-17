@@ -63,6 +63,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 # Expering session when browser gets closed
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
