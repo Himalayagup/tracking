@@ -64,6 +64,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
 ]
+# Allowing X Frame
+X_FRAME_OPTIONS = 'ALLOWALL'
+
+XS_SHARING_ALLOWED_METHODS = ['POST', 'GET', 'OPTIONS', 'PUT', 'DELETE']
 # Allowing Cross Border Origin Request (CORS):
 CORS_ORIGIN_ALLOW_ALL = True
 # Expering session when browser gets closed
