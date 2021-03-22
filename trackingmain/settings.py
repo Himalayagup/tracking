@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'mathfilters',
     'django_filters',
     'bootstrap_datepicker_plus',
+    'corsheaders',
     # our apps
     'agency',
     'advertiser',
@@ -61,8 +62,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
-
+# Allowing Cross Border Origin Request (CORS):
+CORS_ORIGIN_ALLOW_ALL = True
 # Expering session when browser gets closed
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
