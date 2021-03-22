@@ -22,7 +22,7 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = '5(+t&q@@qp5#xb%qjcyyg$133p6!48sn+a7axlf43)8c%g!_8g'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['192.168.29.19', '192.168.29.87', '127.0.0.1',
                  'localhost', '143.110.177.56', 'kagayaki.co.in', 'www.kagayaki.co.in']
@@ -96,24 +96,24 @@ WSGI_APPLICATION = 'trackingmain.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-# if DEBUG:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.sqlite3',
-#             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#         }
-#     }
-# else:
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'trackingdb',
-        'USER': 'track_admin',
-        'PASSWORD': 'tracking@Golden@123',
-        'HOST': 'localhost',
-        'PORT': '',
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'trackingdb',
+            'USER': 'track_admin',
+            'PASSWORD': 'tracking@Golden@123',
+            'HOST': 'localhost',
+            'PORT': '',
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
