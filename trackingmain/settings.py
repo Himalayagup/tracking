@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # third party apps
-    'hitcount',
     'bootstrap4',
     'widget_tweaks',
     'mathfilters',
