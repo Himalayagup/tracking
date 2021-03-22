@@ -57,7 +57,7 @@ class HomePage(TemplateView):
 
 # Publisher applying for campaigns
 
-
+@method_decorator(xframe_options_exempt, name='dispatch')
 class ReadingSession(ObjectLeadMixin, TemplateView):
     template_name = 'session.html'
 
