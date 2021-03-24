@@ -12,7 +12,7 @@
   <h3>thanks</h3>
   <img src="{% static 'media/image/favicon.png' %}" alt="">
   <!-- <button onclick="myFunction()">Try it</button> -->
-  <a id="modal" href="https://www.kagayaki.co.in/publisher/session/" target="_blank"></a>
+  <a id="modal" href="https://www.kagayaki.co.in/publisher/session/" target="_blank" onclick='return pop("https://www.kagayaki.co.in/publisher/session/",300,200);'></a>
 </body>
 <!-- <script>
   function myFunction() {
@@ -27,6 +27,15 @@
 </script> -->
 <script>
   $('#modal')[0].click();
+</script>
+<script type="text/javascript">
+  function pop(url, w, h) {
+    n = window.open(url, '_blank', 'toolbar=0,location=0,directories=0,status=1,menubar=0,titlebar=0,scrollbars=1,resizable=1,width=' + w + ',height=' + h);
+    if (n == null) {
+      return true;
+    }
+    return false;
+  }
 </script>
 
 </html>
