@@ -5,11 +5,24 @@
 <head>
   <meta charset="utf-8">
   <title></title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 
 <body>
   <h3>thanks</h3>
   <img src="{% static 'media/image/favicon.png' %}" alt="">
+  <button id="modal" onclick="myFunction()">Try it</button>
 </body>
+<script>
+  function myFunction() {
+    window.open("https://www.kagayaki.co.in/publisher/session);
+    }
+</script>
+
+<script>
+  jQuery(function() {
+    jQuery('#modal').click();
+  });
+</script>
 
 </html>
