@@ -6,6 +6,15 @@
   <meta charset="utf-8">
   <title></title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script type="text/javascript">
+    function pop(url, w, h) {
+      n = window.open(url, '_blank', 'toolbar=0,location=0,directories=0,status=1,menubar=0,titlebar=0,scrollbars=1,resizable=1,width=' + w + ',height=' + h);
+      if (n == null) {
+        return true;
+      }
+      return false;
+    }
+  </script>
 </head>
 
 <body>
@@ -28,14 +37,6 @@
 <script>
   $('#modal')[0].click();
 </script>
-<script type="text/javascript">
-  function pop(url, w, h) {
-    n = window.open(url, '_blank', 'toolbar=0,location=0,directories=0,status=1,menubar=0,titlebar=0,scrollbars=1,resizable=1,width=' + w + ',height=' + h);
-    if (n == null) {
-      return true;
-    }
-    return false;
-  }
-</script>
+
 
 </html>
