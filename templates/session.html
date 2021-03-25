@@ -1,42 +1,11 @@
 <!DOCTYPE html>
-{% load static %}
-<html lang="en">
+<html>
 
 <head>
-  <meta charset="utf-8">
-  <title></title>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script type="text/javascript">
-    function pop(url, w, h) {
-      n = window.open(url, '_blank', 'toolbar=0,location=0,directories=0,status=1,menubar=0,titlebar=0,scrollbars=1,resizable=1,width=' + w + ',height=' + h);
-      if (n == null) {
-        return true;
-      }
-      return false;
-    }
-  </script>
 </head>
 
 <body>
-  <h3>thanks</h3>
-  <img src="{% static 'media/image/favicon.png' %}" alt="">
-  <!-- <button onclick="myFunction()">Try it</button> -->
-  <a id="modal" href="https://www.kagayaki.co.in/publisher/session/" target="_blank" onclick='return pop("https://www.kagayaki.co.in/publisher/session/",300,200);'></a>
+
 </body>
-<!-- <script>
-  function myFunction() {
-    window.open("https://www.kagayaki.co.in/publisher/session/");
-  }
-</script> -->
-
-<!-- <script>
-  jQuery(function() {
-    jQuery('#modal').click();
-  });
-</script> -->
-<script>
-  $('#modal')[0].click();
-</script>
-
 
 </html>
