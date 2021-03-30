@@ -68,7 +68,7 @@ MIDDLEWARE = [
 X_FRAME_OPTIONS = 'ALLOWALL'
 
 XS_SHARING_ALLOWED_METHODS = ['POST', 'GET', 'OPTIONS', 'PUT', 'DELETE']
-# Allowing Cross Border Origin Request (CORS):
+# Allowing Cross-Origin Resource Sharing (CORS):
 CORS_ORIGIN_ALLOW_ALL = True
 # Expering session when browser gets closed
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
