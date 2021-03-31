@@ -73,6 +73,8 @@ CORS_ORIGIN_ALLOW_ALL = True
 # Expering session when browser gets closed
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_COOKIE_DOMAIN = "."
+SESSION_COOKIE_HTTPONLY = False
+SESSION_COOKIE_SAMESITE = 'None'
 ROOT_URLCONF = 'trackingmain.urls'
 
 TEMPLATES = [
