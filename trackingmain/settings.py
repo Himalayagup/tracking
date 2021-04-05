@@ -22,9 +22,9 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = '5(+t&q@@qp5#xb%qjcyyg$133p6!48sn+a7axlf43)8c%g!_8g'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.29.16', '192.168.29.87', '127.0.0.1',
+ALLOWED_HOSTS = ['192.168.0.7', '192.168.29.84', '127.0.0.1',
                  'localhost', '143.110.177.56', 'kagayaki.co.in', 'www.kagayaki.co.in']
 
 
@@ -72,7 +72,7 @@ XS_SHARING_ALLOWED_METHODS = ['POST', 'GET', 'OPTIONS', 'PUT', 'DELETE']
 CORS_ORIGIN_ALLOW_ALL = True
 # Expering session when browser gets closed
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-SESSION_COOKIE_DOMAIN = "."
+# SESSION_COOKIE_DOMAIN = "."
 SESSION_COOKIE_HTTPONLY = False
 SESSION_COOKIE_SAMESITE = 'Lax'
 ROOT_URLCONF = 'trackingmain.urls'
