@@ -114,12 +114,12 @@ def object_lead_receiver(sender, instance, request, *args, **kwargs):
     except:
         pass
 
-    if request.COOKIES:
+    if request.session.keys():
         new_lead_instance = ObjectLead.objects.get_or_create(
-            campaign=request.COOKIES['campaign1'],
-            campaign_id=request.COOKIES['campaign_id1'],
-            publisher=request.COOKIES['publisher1'],
-            publisher_id=request.COOKIES['publisher_id1'],
+            campaign=campaign_n,
+            campaign_id=campaign_n_id,
+            publisher=publisher_n,
+            publisher_id=publisher_n_id,
             ip_address=ip_address,
         )
     else:
