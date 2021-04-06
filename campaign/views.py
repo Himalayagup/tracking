@@ -14,6 +14,7 @@ from django.contrib.auth.decorators import login_required
 from accounts.decorators import owner_required, manager_or_owner_required
 from analytics.filters import CampaignIndividaulFilter
 from .filters import CampaignStatusFilter
+from django.views.decorators.clickjacking import xframe_options_exempt
 # Create your views here.
 
 
@@ -30,7 +31,7 @@ class CampaignDetail(DetailView):
 #     model = Campaign
 #     count_hit = True
 
-
+@method_decorator(xframe_options_exempt, name='dispatch')
 class CampaignToPublisherDetail(ObjectViewMixin, DetailView):
     template_name = "publisher/campaigntopublisher_detail.html"
     model = CampaignToPublisher
