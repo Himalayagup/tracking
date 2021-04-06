@@ -33,7 +33,7 @@ class CampaignDetail(DetailView):
 #     count_hit = True
 
 @method_decorator(csrf_exempt, name='dispatch')
-@method_decorator(xframe_options_exempt, name='dispatch')
+# @method_decorator(xframe_options_exempt, name='dispatch')
 class CampaignToPublisherDetail(ObjectViewMixin, DetailView):
     template_name = "publisher/campaigntopublisher_detail.html"
     model = CampaignToPublisher
