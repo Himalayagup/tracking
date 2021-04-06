@@ -64,10 +64,19 @@ class ReadingSession(ObjectLeadMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         if self.request.session.keys():
+            print("Session")
             context['publisher'] = self.request.session['publisher']
             context['publisher_id'] = self.request.session['publisher_id']
-            context['campaign_id'] = self.request.session['campaign']
+            context['campaign'] = self.request.session['campaign']
             context['campaign_id'] = self.request.session['campaign_id']
+
+        if 'publisher1' in self.request.COOKIES and 'publisher_id1' in self.request.COOKIES and 'campaign1' in self.request.COOKIES and 'campaign_id1' in self.request.COOKIES:
+            print('Cookie')
+            context['publisher1'] = self.request.COOKIES['publisher1']
+            context['publisher_id1'] = self.request.COOKIES['publisher_id1']
+            context['campaign1'] = self.request.COOKIES['campaign1']
+            context['campaign_id1'] = self.request.COOKIES['campaign_id1']
+        print(context)
         return context
 
 
