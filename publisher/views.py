@@ -18,6 +18,7 @@ from accounts.decorators import owner_required, publisher_required, manager_or_o
 from analytics.mixins import ObjectLeadMixin
 from .filters import CampaignStatuFilter
 from django.views.decorators.clickjacking import xframe_options_exempt
+from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 
 
@@ -56,7 +57,7 @@ class HomePage(TemplateView):
 
 
 # Publisher applying for campaigns
-
+@method_decorator(csrf_exempt, name='dispatch')
 @method_decorator(xframe_options_exempt, name='dispatch')
 class ReadingSession(ObjectLeadMixin, TemplateView):
     template_name = 'session.html'
