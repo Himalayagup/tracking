@@ -19,7 +19,7 @@ from . import views
 from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-import shared_session
+
 urlpatterns = [
     path('', views.HomePage.as_view(), name="home"),
     path('admin/', admin.site.urls),
@@ -32,7 +32,6 @@ urlpatterns = [
     path('thanks/', views.ThanksPage.as_view(), name="thanks"),
     path('accounts/', include("accounts.urls", namespace="accounts")),
     path('accounts/', include("django.contrib.auth.urls")),
-    path('shared-session/', shared_session.urls),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
