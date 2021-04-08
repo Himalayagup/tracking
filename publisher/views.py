@@ -84,7 +84,6 @@ class ReadingSession(ObjectLeadMixin, TemplateView):
     def get(self, request, *args, **kwargs):
         print("YAYAYAY")
         try:
-            # get_client_ip is utility in utils.py file to get IP address
             ip_address = get_client_ip(request)
         except:
             pass
@@ -93,6 +92,7 @@ class ReadingSession(ObjectLeadMixin, TemplateView):
             campaign_id=self.request.COOKIES['campaign_id1'],
             publisher=self.request.COOKIES['publisher1'],
             publisher_id=self.request.COOKIES['publisher_id1'],
+            ip_address=ip_address,
         )
         return super().get(request, *args, **kwargs)
 
