@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'django_filters',
     'bootstrap_datepicker_plus',
     'corsheaders',
-    'shared_session',
     # our apps
     'agency',
     'advertiser',
@@ -54,8 +53,6 @@ INSTALLED_APPS = [
     'analytics',
     'accounts',
 ]
-SHARED_SESSION_SITES = ['www.kagayaki.co.in',
-                        'kagayaki.co.in', 'www.creditinbox.com', 'creditinbox.com']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
