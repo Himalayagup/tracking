@@ -19,6 +19,7 @@ from analytics.mixins import ObjectLeadMixin
 from .filters import CampaignStatuFilter
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.decorators.csrf import csrf_exempt
+from analytics.utils import get_client_ip
 # Create your views here.
 
 
@@ -65,24 +66,39 @@ class ReadingSession(ObjectLeadMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         if self.request.session.keys():
-            print("Session")
+            # print("Session")
             context['publisher'] = self.request.session['publisher']
             context['publisher_id'] = self.request.session['publisher_id']
             context['campaign'] = self.request.session['campaign']
             context['campaign_id'] = self.request.session['campaign_id']
 
         if 'publisher1' in self.request.COOKIES and 'publisher_id1' in self.request.COOKIES and 'campaign1' in self.request.COOKIES and 'campaign_id1' in self.request.COOKIES:
-            print('Cookie')
+            # print('Cookie')
             context['publisher1'] = self.request.COOKIES['publisher1']
             context['publisher_id1'] = self.request.COOKIES['publisher_id1']
             context['campaign1'] = self.request.COOKIES['campaign1']
             context['campaign_id1'] = self.request.COOKIES['campaign_id1']
-        print(context)
+        # print(context)
         return context
 
+    def get(self, request, *args, **kwargs):
+        print("YAYAYAY")
+        try:
+            # get_client_ip is utility in utils.py file to get IP address
+            ip_address = get_client_ip(request)
+        except:
+            pass
+        new_lead_instance = ObjectLead.objects.create(
+            campaign=self.request.COOKIES['campaign1'],
+            campaign_id=self.request.COOKIES['campaign_id1'],
+            publisher=self.request.COOKIES['publisher1'],
+            publisher_id=self.request.COOKIES['publisher_id1'],
+        )
+        return super().get(request, *args, **kwargs)
 
-@login_required
-@publisher_required(login_url='../../accounts/not_allowed')
+
+@ login_required
+@ publisher_required(login_url='../../accounts/not_allowed')
 def publisher_register(request):
     user = request.user
 
@@ -106,7 +122,7 @@ def publisher_register(request):
 
 
 # To apply campaign by using url and passing parameters to it
-@method_decorator([login_required, publisher_required(login_url='../../accounts/not_allowed')], name='dispatch')
+@ method_decorator([login_required, publisher_required(login_url='../../accounts/not_allowed')], name='dispatch')
 class ApplyForCampaign(RedirectView):
 
     def get_redirect_url(self, *args, **kwargs):
@@ -131,7 +147,7 @@ class ApplyForCampaign(RedirectView):
         return super().get(request, *args, **kwargs)
 
 
-@method_decorator([login_required, manager_or_owner_required(login_url='../../accounts/not_allowed')], name='dispatch')
+@ method_decorator([login_required, manager_or_owner_required(login_url='../../accounts/not_allowed')], name='dispatch')
 class CampaignToPublisherList(ListView):
     # specify the model for list view
     template_name = 'publisher/campaigntopublisher_list.html'
@@ -145,7 +161,7 @@ class CampaignToPublisherList(ListView):
 
 
 # to only show campaigns running by individual publishers
-@method_decorator([login_required, publisher_required(login_url='../../accounts/not_allowed')], name='dispatch')
+@ method_decorator([login_required, publisher_required(login_url='../../accounts/not_allowed')], name='dispatch')
 class CampaignToPublisherIndividaulList(ListView):
     # specify the model for list view
     model = CampaignToPublisher
@@ -164,7 +180,7 @@ class CampaignToPublisherIndividaulList(ListView):
     #     return context
 
 
-@method_decorator([login_required], name='dispatch')
+@ method_decorator([login_required], name='dispatch')
 class CampaignDataDetail(DetailView):
     model = Campaign
     template_name = 'publisher/publisher_campaign_detail.html'
@@ -185,7 +201,7 @@ class CampaignDataDetail(DetailView):
         return context
 
 
-@method_decorator([login_required, manager_or_owner_required(login_url='../../accounts/not_allowed')], name='dispatch')
+@ method_decorator([login_required, manager_or_owner_required(login_url='../../accounts/not_allowed')], name='dispatch')
 class CampaignToPublisherUpdateView(LoginRequiredMixin, UpdateView):
     # specify the model you want to use
     model = CampaignToPublisher
@@ -203,7 +219,7 @@ class CampaignToPublisherUpdateView(LoginRequiredMixin, UpdateView):
     success_url = "/publisher/runningcamp"
 
 
-@method_decorator([login_required, publisher_required(login_url='../../accounts/not_allowed')], name='dispatch')
+@ method_decorator([login_required, publisher_required(login_url='../../accounts/not_allowed')], name='dispatch')
 class CampaignToPublisherPixelAddView(LoginRequiredMixin, UpdateView):
     # specify the model you want to use
     model = CampaignToPublisher
@@ -220,7 +236,7 @@ class CampaignToPublisherPixelAddView(LoginRequiredMixin, UpdateView):
     success_url = "/publisher/individual"
 
 
-@method_decorator([login_required, owner_required(login_url='../../accounts/not_allowed')], name='dispatch')
+@ method_decorator([login_required, owner_required(login_url='../../accounts/not_allowed')], name='dispatch')
 class CampaignToPublisherDeleteView(DeleteView):
     # specify the model you want to use
     template_name = "publisher/campaigntopublisher_confirm_delete.html"
@@ -239,7 +255,7 @@ class PublisherList(ListView):
 # ////////////////////////////////////////
 
 
-@method_decorator([login_required, manager_or_owner_required(login_url='../../accounts/not_allowed')], name='dispatch')
+@ method_decorator([login_required, manager_or_owner_required(login_url='../../accounts/not_allowed')], name='dispatch')
 class PublisherDetail(DetailView):
     model = Publisher
     template_name = "publisher/publisher_detail.html"
@@ -255,7 +271,7 @@ class PublisherDetail(DetailView):
 # ////////////////////////////////////////
 
 
-@method_decorator([login_required, manager_or_owner_required(login_url='../../accounts/not_allowed')], name='dispatch')
+@ method_decorator([login_required, manager_or_owner_required(login_url='../../accounts/not_allowed')], name='dispatch')
 class CampaignToPublisherCreate(CreateView):
     model = CampaignToPublisher
     template_name = "publisher/campaigntopublishermanual_form.html"
