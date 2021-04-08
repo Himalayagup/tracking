@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django_filters',
     'bootstrap_datepicker_plus',
     'corsheaders',
+    'shared_session',
     # our apps
     'agency',
     'advertiser',
@@ -53,6 +54,7 @@ INSTALLED_APPS = [
     'analytics',
     'accounts',
 ]
+SHARED_SESSION_SITES = [*]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
