@@ -54,7 +54,8 @@ INSTALLED_APPS = [
     'analytics',
     'accounts',
 ]
-SHARED_SESSION_SITES = ['www.creditinbox.com', 'creditinbox.com']
+SHARED_SESSION_SITES = ['www.kagayaki.co.in',
+                        'kagayaki.co.in', 'www.creditinbox.com', 'creditinbox.com']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
