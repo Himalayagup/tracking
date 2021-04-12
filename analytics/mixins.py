@@ -16,7 +16,7 @@ class ObjectViewMixin(object):
 class ObjectLeadMixin(object):
     def dispatch(self, request, *args, **kwargs):
         try:
-            instance = request.session
+            instance = request.COOKIES
         except DoesNotExist:
             instance = None
         if instance is not None:

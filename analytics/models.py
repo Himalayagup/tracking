@@ -124,16 +124,16 @@ def object_lead_receiver(sender, instance, request, *args, **kwargs):
         )
     else:
         pass
-    if request.session.keys():
-        new_lead_instance = ObjectLead.objects.get_or_create(
-            campaign=campaign_n,
-            campaign_id=campaign_n_id,
-            publisher=publisher_n,
-            publisher_id=publisher_n_id,
-            ip_address=ip_address,
-        )
-    else:
-        pass
+    # if request.session.keys():
+    #     new_lead_instance = ObjectLead.objects.get_or_create(
+    #         campaign=campaign_n,
+    #         campaign_id=campaign_n_id,
+    #         publisher=publisher_n,
+    #         publisher_id=publisher_n_id,
+    #         ip_address=ip_address,
+    #     )
+    # else:
+    #     pass
 
 
 object_lead_signal.connect(object_lead_receiver)
