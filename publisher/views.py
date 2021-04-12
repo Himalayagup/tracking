@@ -63,32 +63,30 @@ class HomePage(TemplateView):
 class ReadingSession(ObjectLeadMixin, TemplateView):
     template_name = 'session.html'
 
-    def get(self, request, *args, **kwargs):
-        print("YAYAYAY")
-        try:
-            ip_address = get_client_ip(request)
-        except:
-            pass
-        new_lead_instance = ObjectLead.objects.create(
-            campaign=self.request.COOKIES['campaign1'],
-            campaign_id=self.request.COOKIES['campaign_id1'],
-            publisher=self.request.COOKIES['publisher1'],
-            publisher_id=self.request.COOKIES['publisher_id1'],
-            ip_address=ip_address,
-        )
-        return super().get(request, *args, **kwargs)
+    # def get(self, request, *args, **kwargs):
+    #     print("YAYAYAY")
+    #     try:
+    #         ip_address = get_client_ip(request)
+    #     except:
+    #         pass
+    #     new_lead_instance = ObjectLead.objects.create(
+    #         campaign=self.request.COOKIES['campaign1'],
+    #         campaign_id=self.request.COOKIES['campaign_id1'],
+    #         publisher=self.request.COOKIES['publisher1'],
+    #         publisher_id=self.request.COOKIES['publisher_id1'],
+    #         ip_address=ip_address,
+    #     )
+    #     return super().get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         if self.request.session.keys():
-            # print("Session")
             context['publisher'] = self.request.session['publisher']
             context['publisher_id'] = self.request.session['publisher_id']
             context['campaign'] = self.request.session['campaign']
             context['campaign_id'] = self.request.session['campaign_id']
 
         if 'publisher1' in self.request.COOKIES and 'publisher_id1' in self.request.COOKIES and 'campaign1' in self.request.COOKIES and 'campaign_id1' in self.request.COOKIES:
-            # print('Cookie')
             context['publisher1'] = self.request.COOKIES['publisher1']
             context['publisher_id1'] = self.request.COOKIES['publisher_id1']
             context['campaign1'] = self.request.COOKIES['campaign1']

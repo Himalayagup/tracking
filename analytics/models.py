@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from .signals import object_viewed_signal, object_lead_signal
-from .utils import get_client_ip, get_publisher, get_campaign, get_campaign_id, get_publisher_id
+from .utils import get_client_ip, get_publisher, get_campaign, get_campaign_id, get_publisher_id, get_publisher1, get_campaign1, get_campaign_id1, get_publisher_id1
 # Create your models here.
 
 # click/visit recorder
@@ -114,16 +114,45 @@ def object_lead_receiver(sender, instance, request, *args, **kwargs):
     except:
         pass
 
-    if request.COOKIES:
-        new_lead_instance = ObjectLead.objects.get_or_create(
-            campaign=request.COOKIES['campaign1'],
-            campaign_id=request.COOKIES['campaign_id1'],
-            publisher=request.COOKIES['publisher1'],
-            publisher_id=request.COOKIES['publisher_id1'],
-            ip_address=ip_address,
-        )
-    else:
+    #COOKIES###################################################################
+    # to get publisher name
+    try:
+        # get_publisher is utility in utils.py file to get publisher name
+        publisher_n1 = get_publisher1(request)
+    except:
         pass
+
+    # to get publisher id
+    try:
+        # get_publisher_id is utility in utils.py file to get publisher id
+        publisher_n_id1 = get_publisher_id1(request)
+    except:
+        pass
+
+    # to get campaign name
+    try:
+        # get_campaign is utility in utils.py file to get campaign name
+        campaign_n1 = get_campaign1(request)
+    except:
+        pass
+
+    # to get campaign id
+    try:
+        # get_campaign_id is utility in utils.py file to get campaign id
+        campaign_n_id1 = get_campaign_id1(request)
+    except:
+        pass
+
+    # if request.COOKIES:
+    #     new_lead_instance = ObjectLead.objects.get_or_create(
+    #         campaign=request.COOKIES['campaign1'],
+    #         campaign_id=request.COOKIES['campaign_id1'],
+    #         publisher=request.COOKIES['publisher1'],
+    #         publisher_id=request.COOKIES['publisher_id1'],
+    #         ip_address=ip_address,
+    #     )
+    # else:
+    #     pass
     # if request.session.keys():
     #     new_lead_instance = ObjectLead.objects.get_or_create(
     #         campaign=campaign_n,
@@ -134,6 +163,16 @@ def object_lead_receiver(sender, instance, request, *args, **kwargs):
     #     )
     # else:
     #     pass
+    if request.COOKIES:
+        new_lead_instance = ObjectLead.objects.get_or_create(
+            campaign=campaign_n1,
+            campaign_id=campaign_n_id1,
+            publisher=publisher_n1,
+            publisher_id=publisher_n_id1,
+            ip_address=ip_address,
+        )
+    else:
+        pass
 
 
 object_lead_signal.connect(object_lead_receiver)
