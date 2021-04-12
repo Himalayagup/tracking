@@ -1,4 +1,6 @@
 from .signals import object_viewed_signal, object_lead_signal
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 
 
 class ObjectViewMixin(object):
@@ -13,6 +15,7 @@ class ObjectViewMixin(object):
         return super(ObjectViewMixin, self).dispatch(request, *args, **kwargs)
 
 
+@method_decorator(csrf_exempt, name='dispatch')
 class ObjectLeadMixin(object):
     def dispatch(self, request, *args, **kwargs):
         try:
