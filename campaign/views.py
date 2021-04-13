@@ -51,13 +51,13 @@ class CampaignToPublisherDetail(ObjectViewMixin, DetailView):
         response = super(CampaignToPublisherDetail, self).render_to_response(
             context, **response_kwargs)
         response.set_cookie(
-            "publisher1", self.object.user.company_name, max_age=3600, samesite='None', secure=True)
+            "publisher1", self.object.user.company_name, max_age=86400, samesite='None', secure=True)
         response.set_cookie(
-            "campaign1", self.object.campaign.campaign_name, samesite='None', secure=True)
+            "campaign1", self.object.campaign.campaign_name, max_age=86400, samesite='None', secure=True)
         response.set_cookie(
-            "publisher_id1", self.object.user.pk, samesite='None', secure=True)
+            "publisher_id1", self.object.user.pk, max_age=86400, samesite='None', secure=True)
         response.set_cookie(
-            "campaign_id1", self.object.campaign.campaign_key, samesite='None', secure=True)
+            "campaign_id1", self.object.campaign.campaign_key, max_age=86400, samesite='None', secure=True)
 
         return response
 
