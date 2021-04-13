@@ -63,20 +63,20 @@ class HomePage(TemplateView):
 class ReadingSession(ObjectLeadMixin, TemplateView):
     template_name = 'session.html'
 
-    def get(self, request, *args, **kwargs):
-        print("YAYAYAY")
-        try:
-            ip_address = get_client_ip(request)
-        except:
-            pass
-        new_lead_instance = ObjectLead.objects.create(
-            campaign=self.request.COOKIES['campaign1'],
-            campaign_id=self.request.COOKIES['campaign_id1'],
-            publisher=self.request.COOKIES['publisher1'],
-            publisher_id=self.request.COOKIES['publisher_id1'],
-            ip_address=ip_address,
-        )
-        return super().get(request, *args, **kwargs)
+    # def get(self, request, *args, **kwargs):
+    #     print("YAYAYAY")
+    #     try:
+    #         ip_address = get_client_ip(request)
+    #     except:
+    #         pass
+    #     new_lead_instance = ObjectLead.objects.create(
+    #         campaign=self.request.COOKIES['campaign1'],
+    #         campaign_id=self.request.COOKIES['campaign_id1'],
+    #         publisher=self.request.COOKIES['publisher1'],
+    #         publisher_id=self.request.COOKIES['publisher_id1'],
+    #         ip_address=ip_address,
+    #     )
+    #     return super().get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
