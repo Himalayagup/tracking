@@ -50,7 +50,8 @@ class CampaignToPublisherDetail(ObjectViewMixin, DetailView):
     def render_to_response(self, context, **response_kwargs):
         response = super(CampaignToPublisherDetail, self).render_to_response(
             context, **response_kwargs)
-        response.set_cookie("publisher1", self.object.user.company_name)
+        response.set_cookie(
+            "publisher1", self.object.user.company_name, max_age=3600, samesite=None, secure=True)
         response.set_cookie("campaign1", self.object.campaign.campaign_name)
         response.set_cookie("publisher_id1", self.object.user.pk)
         response.set_cookie("campaign_id1", self.object.campaign.campaign_key)
