@@ -6,7 +6,6 @@ from .forms import PublisherSignUpForm, ManagerSignUpForm, OwnerSignUpForm
 from django.contrib.auth.forms import AuthenticationForm
 from .models import User
 
-
 # def register(request):
 #     return render(request, 'accounts/register.html')
 
