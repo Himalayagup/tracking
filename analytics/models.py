@@ -1,9 +1,23 @@
-from django.db import models
+import uuid
+
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
-from .signals import object_viewed_signal, object_lead_signal
-from .utils import get_client_ip, get_publisher, get_campaign, get_campaign_id, get_publisher_id, get_publisher1, get_campaign1, get_campaign_id1, get_publisher_id1
+from django.db import models
+
+from .signals import object_lead_signal, object_viewed_signal
+from .utils import (get_campaign, get_campaign1, get_campaign_id,
+                    get_campaign_id1, get_client_ip, get_publisher,
+                    get_publisher1, get_publisher_id, get_publisher_id1)
+
 # Create your models here.
+
+
+class UniqueID(models.Model):
+    uniqueid = models.UUIDField(
+        null=True, blank=True, unique=True)
+
+    def __str__(self):
+        return str(self.uniqueid)
 
 # click/visit recorder
 # Click/Visit Model
@@ -17,6 +31,8 @@ class ObjectViewed(models.Model):
     content_object = GenericForeignKey(
         'content_type', 'object_id')
     timestamp = models.DateTimeField(auto_now_add=True)
+    click_id = models.UUIDField(
+        null=True, blank=True, unique=True)
 
     def __str__(self, ):
         return "%s viewed: %s & IP Address %s" % (self.content_object, self.timestamp, self.ip_address)
@@ -38,10 +54,19 @@ def object_viewed_receiver(sender, instance, request, *args, **kwargs):
         ip_address = get_client_ip(request)
     except:
         pass
+    # getting unique id generated from utils.py file
+    from campaign.utils import get_uni_id
+    try:
+        global unique_click_id
+        unique_click_id = get_uni_id()
+    except:
+        pass
+
     new_view_instance = ObjectViewed.objects.create(
         content_type=c_type,
         object_id=instance.id,
-        ip_address=ip_address
+        ip_address=ip_address,
+        click_id=unique_click_id
     )
 
 
@@ -61,6 +86,8 @@ class ObjectLead(models.Model):
     lead_timestamp = models.DateTimeField(auto_now_add=True)
     ip_address = models.CharField(
         max_length=120, blank=True, null=True)
+    click_id = models.UUIDField(
+        null=True, blank=True, unique=True)
 
     def __str__(self, ):
         return "%s lead: %s & IP Address %s" % (self.campaign, self.lead_timestamp, self.ip_address)

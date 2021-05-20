@@ -1,21 +1,22 @@
-from django.shortcuts import render
-from django.views.generic import (
-    TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView, RedirectView)
-from .models import Campaign, CampaignToPublisher
-from analytics.mixins import ObjectViewMixin
-from django.urls import reverse
-from django.db import IntegrityError
-from django.shortcuts import get_object_or_404
-from hitcount.views import HitCountDetailView
-from analytics.mixins import ObjectViewMixin
 
-from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
-from accounts.decorators import owner_required, manager_or_owner_required
-from analytics.filters import CampaignIndividaulFilter
-from .filters import CampaignStatusFilter
+from django.db import IntegrityError
+from django.shortcuts import get_object_or_404, render
+from django.urls import reverse
+from django.utils.decorators import method_decorator
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
+                                  RedirectView, TemplateView, UpdateView)
+from hitcount.views import HitCountDetailView
+
+from accounts.decorators import manager_or_owner_required, owner_required
+from analytics.filters import CampaignIndividaulFilter
+from analytics.mixins import ObjectViewMixin
+
+from .filters import CampaignStatusFilter
+from .models import Campaign, CampaignToPublisher
+
 # Create your views here.
 
 
@@ -41,15 +42,19 @@ class CampaignToPublisherDetail(ObjectViewMixin, DetailView):
     def get_context_data(self, *args, **kwargs):
         context = super(CampaignToPublisherDetail,
                         self).get_context_data(*args, **kwargs)
+        from analytics.models import unique_click_id
         self.request.session['publisher'] = self.object.user.company_name
         self.request.session['publisher_id'] = self.object.user.pk
         self.request.session['campaign'] = self.object.campaign.campaign_name
         self.request.session['campaign_id'] = self.object.campaign.campaign_key
+        self.request.session['click_id'] = unique_click_id
+        context["click_id"] = unique_click_id
         return context
 
     def render_to_response(self, context, **response_kwargs):
         response = super(CampaignToPublisherDetail, self).render_to_response(
             context, **response_kwargs)
+        from analytics.models import unique_click_id
         response.set_cookie(
             "publisher1", self.object.user.company_name, max_age=86400, samesite='None', secure=True)
         response.set_cookie(

@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'publisher',
     'analytics',
     'accounts',
+    'postback',
 ]
 
 MIDDLEWARE = [
