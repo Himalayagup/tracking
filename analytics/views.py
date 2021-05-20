@@ -1,21 +1,23 @@
-from django.shortcuts import render
-from django.views.generic import (
-    TemplateView, ListView, DetailView)
-from .models import ObjectViewed, ObjectLead
-from campaign.models import Campaign, CampaignToPublisher
-from django.contrib.contenttypes.models import ContentType
-from django.utils.decorators import method_decorator
-from django.contrib.auth.decorators import login_required
-from accounts.decorators import owner_required, publisher_required, manager_or_owner_required
-from django.db.models import Q
-from .filters import CampaignIndividaulFilter, ClickViewFilter, LeadFilter, ClickIndiFilter, LeadIndiFilter
-from django.db.models import Count
 # To export csv
 import csv
+from datetime import datetime, time, timedelta
 
-from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.contrib.contenttypes.models import ContentType
+from django.db.models import Count, Q
 from django.http import HttpResponse
-from datetime import datetime, timedelta, time
+from django.shortcuts import render
+from django.utils.decorators import method_decorator
+from django.views.generic import DetailView, ListView, TemplateView
+
+from accounts.decorators import (manager_or_owner_required, owner_required,
+                                 publisher_required)
+from campaign.models import Campaign, CampaignToPublisher
+
+from .filters import (CampaignIndividaulFilter, ClickIndiFilter,
+                      ClickViewFilter, LeadFilter, LeadIndiFilter)
+from .models import ObjectLead, ObjectViewed
+
 # Create your views here.
 
 
