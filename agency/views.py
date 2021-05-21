@@ -1,16 +1,14 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-from django.views.generic import (
-    TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView)
+from django.utils.decorators import method_decorator
+from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
+                                  TemplateView, UpdateView)
+
+from accounts.decorators import manager_or_owner_required, owner_required
 
 from .models import Agency
-from django.utils.decorators import method_decorator
-from django.contrib.auth.decorators import login_required
-from accounts.decorators import owner_required, manager_or_owner_required
+
 # Create your views here.
-
-
-class HomePage(TemplateView):
-    template_name = 'agency/index.html'
 
 
 @method_decorator([login_required, manager_or_owner_required(login_url='../../accounts/not_allowed')], name='dispatch')

@@ -1,46 +1,45 @@
-from django.shortcuts import render
-from django.views.generic import (
-    TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView, RedirectView)
-from accounts.models import Publisher
-from campaign.models import CampaignToPublisher, Campaign
-from analytics.models import ObjectLead, ObjectViewed
-from .forms import CampaignToPublisherForm, ApplyCampaignFormCreate, CampaignToPublisherCreateForm
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404
 from django.contrib import messages
-from django.db import IntegrityError
-from django.urls import reverse
-from django.db.models import Q
-from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
-from accounts.decorators import owner_required, publisher_required, manager_or_owner_required
-from analytics.mixins import ObjectLeadMixin
-from .filters import CampaignStatuFilter
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db import IntegrityError
+from django.db.models import Q
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
+from django.urls import reverse
+from django.utils.decorators import method_decorator
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
+                                  RedirectView, TemplateView, UpdateView)
+
+from accounts.decorators import (manager_or_owner_required, owner_required,
+                                 publisher_required)
+from accounts.models import Publisher
+from analytics.mixins import ObjectLeadMixin
+from analytics.models import ObjectLead, ObjectViewed
 from analytics.utils import get_client_ip
+from campaign.models import Campaign, CampaignToPublisher
+
+from .filters import CampaignStatuFilter
+from .forms import (ApplyCampaignFormCreate, CampaignToPublisherCreateForm,
+                    CampaignToPublisherForm)
+
 # Create your views here.
-
-
-class HomePage(TemplateView):
-    template_name = 'publisher/index.html'
-
 
 # For setting up cookies
 
 # class CampaignToPublisherDetail(ObjectViewMixin, DetailView):
 #     model = CampaignToPublisher
 #
-    # def render_to_response(self, context, **response_kwargs):
-    #     response = super(CampaignToPublisherDetail, self).render_to_response(
-    #         context, **response_kwargs)
-    #     publisher = self.object.user
-    #     campaign = self.object.campaign
-    #
-    #     response.set_cookie("publisher", publisher)
-    #     response.set_cookie("campaign", campaign)
-    #     return response
+# def render_to_response(self, context, **response_kwargs):
+#     response = super(CampaignToPublisherDetail, self).render_to_response(
+#         context, **response_kwargs)
+#     publisher = self.object.user
+#     campaign = self.object.campaign
+#
+#     response.set_cookie("publisher", publisher)
+#     response.set_cookie("campaign", campaign)
+#     return response
 
 # For setting up sessions
 

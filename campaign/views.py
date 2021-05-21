@@ -20,18 +20,14 @@ from .models import Campaign, CampaignToPublisher
 # Create your views here.
 
 
-class HomePage(TemplateView):
-    template_name = 'campaign/index.html'
-
-
 @method_decorator([login_required, manager_or_owner_required(login_url='../../accounts/not_allowed')], name='dispatch')
 class CampaignDetail(DetailView):
     model = Campaign
 
-
 # class CampaignDetail(HitCountDetailView):
 #     model = Campaign
 #     count_hit = True
+
 
 @method_decorator(csrf_exempt, name='dispatch')
 @method_decorator(xframe_options_exempt, name='dispatch')

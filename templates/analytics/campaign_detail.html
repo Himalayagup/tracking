@@ -76,7 +76,7 @@
                     {% for publisher in campaign.publisher_campaign.all %}
                     <tr>
                       <td>
-                        <a class="text-info" href="http://192.168.29.16:8000/analytic/leads/?campaign={{request.session.campaign_detail}}&publisher={{publisher.company_name}}&start_date={% now 'Y-m-j' %}&end_date=&date_range=&submit=">
+                        <a class="text-info" href="https://www.kagayaki.co.in/analytic/leads/?campaign={{request.session.campaign_detail}}&publisher={{publisher.company_name}}&start_date={% now 'Y-m-j' %}&end_date=&date_range=&submit=">
                           <span>{{publisher.pk}} - {{publisher.company_name}}</span>
                         </a>
                       </td>

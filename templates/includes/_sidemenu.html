@@ -349,6 +349,12 @@
               <i data-feather="alert-triangle"></i>
             </a>
           </li>
+          {% elif request.resolver_match.url_name == "camppubdelete" %}
+          <li>
+            <a href="#" data-toggle="tooltip" data-placement="right" title="Delete" data-nav-target="#delete">
+              <i data-feather="alert-triangle"></i>
+            </a>
+          </li>
           {% endif %}
           <!--<li>
             <a href="#" data-toggle="tooltip" data-placement="right" title="Apps" data-nav-target="#apps">
@@ -636,7 +642,11 @@
               <li>
                 <a class="active">Delete Agency</a>
               </li>
-
+              {% endif %}
+              {% if request.resolver_match.url_name == "camppubdelete" %}
+              <li>
+                <a class="active">Delete Campaign from Publisher: {{campaigntopublisher}}</a>
+              </li>
               {% endif %}
             </ul>
           </div>
