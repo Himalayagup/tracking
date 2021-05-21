@@ -1,9 +1,11 @@
+from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.urls import reverse
-from advertiser.models import Advertiser
+
 from accounts.models import Publisher
+from advertiser.models import Advertiser
 from analytics.models import ObjectViewed
-from django.contrib.contenttypes.fields import GenericRelation
+
 # Create your models here.
 STATUS = (
     ("pending", "Pending"),
@@ -80,7 +82,7 @@ class Campaign(models.Model):
                                help_text="Any Comment(s)?",
                                null=True, blank=True)
     status = models.CharField("Status",
-                              help_text="Choose the advertiser status",
+                              help_text="Choose the campaing status",
                               max_length=22,
                               choices=STATUS,)
     publisher_campaign = models.ManyToManyField(
