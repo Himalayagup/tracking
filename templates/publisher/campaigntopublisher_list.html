@@ -113,9 +113,9 @@
                       <td class="text-center">
                         {% if link.status_cam == "active" %}
                         <p>http://www.kagayaki.co.in/campaign/visit-slug/{{link.pk}}</p>
-                        <p><a target="_blank" href="{% url 'camppubdetail' pk=link.pk %}">Try link</a></p>
+                        <p><a target="_blank" class="btn btn-primary btn-sm" href="{% url 'camppubdetail' pk=link.pk %}">Try link</a></p>
                         {% else %}
-                        <p>must be active</p>
+                        <p>Must be active</p>
                         {% endif %}
                       </td>
 
