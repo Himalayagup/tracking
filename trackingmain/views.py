@@ -1,13 +1,16 @@
-from django.shortcuts import render
-from django.views.generic import TemplateView
-from django.utils.decorators import method_decorator
-from django.contrib.auth.decorators import login_required
-from accounts.models import Publisher
-from campaign.models import Campaign, CampaignToPublisher
-from analytics.models import ObjectViewed, ObjectLead
-from datetime import datetime, timedelta, time
+from datetime import date, datetime, time, timedelta
 
-today_fil = datetime.now()
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+from django.utils.decorators import method_decorator
+from django.views.generic import TemplateView
+
+from accounts.models import Publisher
+from analytics.models import ObjectLead, ObjectViewed
+from campaign.models import Campaign, CampaignToPublisher
+
+# today_fil = datetime.now()
+today_fil = date.today()
 yesterday = datetime.now() - timedelta(days=1)
 
 

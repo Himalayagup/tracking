@@ -7,7 +7,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Agency - Delete</title>
+  <title>Campaing from Publisher - Delete</title>
 
   <!-- Favicon -->
   <link rel="shortcut icon" href="{% static 'media/image/favicon.png' %}" />
@@ -61,7 +61,7 @@
               <!-- form -->
               <form method="POST" novalidate>
                 {% csrf_token %}
-                <p>Are you sure you want to delete "{{campaigntopublisher.campaign}}"?</p>
+                <p>Are you sure you want to delete "{{campaigntopublisher.campaign}}" from "{{campaigntopublisher}}"?</p>
 
                 <input type="submit" value="Confirm" class="btn btn-danger btn-block">
               </form>
