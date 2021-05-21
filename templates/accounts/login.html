@@ -45,6 +45,10 @@
       {% for field in form.visible_fields %}
       <div class="form-group">
         {{ field.label_tag }}
+        <br>
+        {% if help_text %}
+        <span style="font-size:12px;">({{ field.help_text}})</span>
+        {% endif %}
         {% render_field field class="form-control" %}
         {% if messages%}
         {% for message in messages %}
