@@ -54,26 +54,26 @@ class Campaign(models.Model):
         Advertiser, related_name="advertiser_company",
         help_text="Advertiser Company Name",
         on_delete=models.CASCADE, null=True, blank=True,)
-    campaign_name = models.CharField("Campaign Name",
+    campaign_name = models.CharField("Campaign Name *",
                                      help_text="Enter the campaign name",
                                      max_length=235,)
-    landing_url = models.URLField("Landing URL",
+    landing_url = models.URLField("Landing URL *",
                                   help_text="Enter the landing url (must include http:// or https://)",
                                   max_length=300,)
-    expire_url = models.URLField("Expire URL",
+    expire_url = models.URLField("Expire URL *",
                                  help_text="Enter the expire url that will work when campaign ends (must include http:// or https://)",
                                  max_length=300,)
-    start_date = models.DateField("Start Date",
+    start_date = models.DateField("Start Date *",
                                   help_text="Enter the campaign's start date (format: YYYY-MM-DD)",
                                   )
-    end_date = models.DateField("End Date",
+    end_date = models.DateField("End Date *",
                                 help_text="Enter the campaign's end date (format: YYYY-MM-DD)",
                                 )
-    campaign_type = models.CharField("Campaign Type",
+    campaign_type = models.CharField("Campaign Type *",
                                      help_text="Select the campaing types",
                                      max_length=22,
                                      choices=CAMPAIGN_TYPE_CHOICE,)
-    campaign_category = models.CharField("Campaign Category",
+    campaign_category = models.CharField("Campaign Category *",
                                          help_text="Select the campaing category",
                                          max_length=22,
                                          choices=CAMPAIGN_CATEGORY_CHOICE,
@@ -81,7 +81,7 @@ class Campaign(models.Model):
     comment = models.TextField("Comments",
                                help_text="Any Comment(s)?",
                                null=True, blank=True)
-    status = models.CharField("Status",
+    status = models.CharField("Status *",
                               help_text="Choose the campaing status",
                               max_length=22,
                               choices=STATUS,)
