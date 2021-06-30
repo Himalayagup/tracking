@@ -68,6 +68,9 @@
 
         <button type="submit" class="btn btn-primary">Search</button>
       </form>
+      <button class="btn btn-danger btn-sm" onclick="clearStartDate()">Clear Star Date</button>
+      <button class="btn btn-danger btn-sm" onclick="clearEndDate()">Clear End Date</button>
+      <button class="btn btn-danger btn-sm" onclick="clearBothDate()">Clear Dates</button>
 
 
       <div class="page-header justify-content-between">
@@ -167,7 +170,20 @@
 
   <!-- App scripts -->
   <script src="{% static 'js/app.min.js' %}"></script>
+  <script>
+    function clearStartDate() {
+      document.getElementById("publishDateMin").value = ""
+    }
 
+    function clearEndDate() {
+      document.getElementById("publishDateMax").value = ""
+    }
+
+    function clearBothDate() {
+      document.getElementById("publishDateMin").value = "";
+      document.getElementById("publishDateMax").value = "";
+    }
+  </script>
 </body>
 
 </html>
