@@ -72,6 +72,10 @@
         </div>
       </form>
 
+      <button class="btn btn-danger btn-sm" onclick="clearStartDate()">Clear Star Date</button>
+      <button class="btn btn-danger btn-sm" onclick="clearEndDate()">Clear End Date</button>
+      <button class="btn btn-danger btn-sm" onclick="clearBothDate()">Clear Dates</button>
+
       <div class="row">
         <div class="col-md-12">
 
@@ -145,6 +149,21 @@
 
   <!-- App scripts -->
   <script src="{% static 'js/app.min.js' %}"></script>
+
+  <script>
+    function clearStartDate() {
+      document.getElementById("startdate").value = ""
+    }
+
+    function clearEndDate() {
+      document.getElementById("enddate").value = ""
+    }
+
+    function clearBothDate() {
+      document.getElementById("enddate").value = "";
+      document.getElementById("startdate").value = "";
+    }
+  </script>
 
 </body>
 
